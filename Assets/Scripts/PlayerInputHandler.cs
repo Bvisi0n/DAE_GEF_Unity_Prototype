@@ -14,7 +14,6 @@ public sealed class PlayerInputHandler : MonoBehaviour
 	private void Awake()
 	{
 		_playerMovement = GetComponent<PlayerMovement>();
-
 		_isConfigured = _movementAction != null && _jumpAction != null;
 
 		if ( !_isConfigured )

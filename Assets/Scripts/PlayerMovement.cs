@@ -4,16 +4,24 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public sealed class PlayerMovement : MonoBehaviour
 {
-	private const float k_GroundCheckDistance = 0.2f;
+	private const float k_GroundCheckDistance = 0.2F;
 	private const string k_GroundLayer = "Ground";
 
-	[SerializeField] private float _movementSpeed = 7f;
-	[SerializeField] private float _jumpStrength = 7f;
+	[SerializeField] private float _movementSpeed = 7F;
+	[SerializeField] private float _jumpLaunchSpeed = 11F;
+	[SerializeField] private float _ascentGravityMultiplier = 2F;
+	[SerializeField] private float _fallGravityMultiplier = 2F;
+	[SerializeField] private float _apexGravityMultiplier = 0.5F;
+	[SerializeField] private float _apexVelocityThreshold = 0.5F;
 
 	private Collider _collider;
 	private Rigidbody _rigidBody;
+
 	private Vector3 _desiredMovementDirection;
+	
 	private bool _grounded;
+	private bool _jumpPhaseActive;
+	private float _jumpStartHeight;
 
 	public Vector3 DesiredMovementDirection
 	{
@@ -29,18 +37,41 @@ public sealed class PlayerMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		ApplyJumpGravity();
 		HandleMovement();
 		CheckGrounded();
 	}
 
 	public void Jump()
 	{
-		if (!_grounded)
+		if ( !_grounded )
 		{
 			return;
 		}
 
-		_rigidBody.AddForce(Vector3.up * _jumpStrength, ForceMode.Impulse);
+		StartJumpPhase();
+	}
+
+	private void ApplyJumpGravity()
+	{
+		Vector3 velocity = _rigidBody.linearVelocity;
+		_jumpPhaseActive = velocity.y < -_apexVelocityThreshold;
+		float gravityMultiplier;
+
+		if ( _jumpPhaseActive && Mathf.Abs( velocity.y ) <= _apexVelocityThreshold )
+		{
+			gravityMultiplier = _apexGravityMultiplier;
+		}
+		else if ( velocity.y > 0F )
+		{
+			gravityMultiplier = _ascentGravityMultiplier;
+		}
+		else
+		{
+			gravityMultiplier = _fallGravityMultiplier;
+		}
+
+		_rigidBody.AddForce( Physics.gravity * ( gravityMultiplier - 1F ), ForceMode.Acceleration );
 	}
 
 	private void HandleMovement()
@@ -55,8 +86,19 @@ public sealed class PlayerMovement : MonoBehaviour
 	{
 		float epsilon = 0.05F;
 		Bounds bounds = _collider.bounds;
-		Vector3 origin = new(bounds.center.x, bounds.min.y + epsilon, bounds.center.z);
-		int layerMask = LayerMask.GetMask(k_GroundLayer);
-		_grounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, layerMask);
+		Vector3 origin = new( bounds.center.x, bounds.min.y + epsilon, bounds.center.z );
+		int layerMask = LayerMask.GetMask( k_GroundLayer );
+		_grounded = Physics.Raycast( origin, Vector3.down, k_GroundCheckDistance, layerMask );
+	}
+
+	private void StartJumpPhase()
+	{
+		_jumpStartHeight = _rigidBody.position.y;
+		_jumpPhaseActive = true;
+		_grounded = false;
+
+		Vector3 velocity = _rigidBody.linearVelocity;
+		velocity.y = _jumpLaunchSpeed;
+		_rigidBody.linearVelocity = velocity;
 	}
 }

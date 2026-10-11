@@ -420,7 +420,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   _movementSpeed: 7
-  _jumpStrength: 7
+  _maxJumpHeight: 2.5
+  _jumpLaunchSpeed: 11
+  _ascentGravityMultiplier: 2
+  _fallGravityMultiplier: 2
+  _apexGravityMultiplier: 0.5
+  _apexVelocityThreshold: 0.5
 --- !u!114 &823478958
 MonoBehaviour:
   m_ObjectHideFlags: 0
