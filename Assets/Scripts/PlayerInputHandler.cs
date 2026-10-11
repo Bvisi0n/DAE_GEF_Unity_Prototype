@@ -19,13 +19,13 @@ public sealed class PlayerInputHandler : MonoBehaviour
 
 		if ( !_isConfigured )
 		{
-			Debug.LogError("InputActionAsset is not properly configured.", this);
+			Debug.LogError( "InputActionAsset is not properly configured.", this );
 		}
 	}
 
 	private void OnEnable()
 	{
-		if (!_isConfigured)
+		if ( !_isConfigured )
 		{
 			return;
 		}
@@ -36,7 +36,7 @@ public sealed class PlayerInputHandler : MonoBehaviour
 
 	private void OnDisable()
 	{
-		if (!_isConfigured)
+		if ( !_isConfigured )
 		{
 			return;
 		}
@@ -52,7 +52,7 @@ public sealed class PlayerInputHandler : MonoBehaviour
 
 	private void HandleJumpInput(InputAction.CallbackContext context)
 	{
-		if (_playerMovement == null)
+		if ( _playerMovement == null )
 		{
 			return;
 		}
@@ -62,7 +62,7 @@ public sealed class PlayerInputHandler : MonoBehaviour
 
 	private void HandleMovementInput()
 	{
-		if (_playerMovement == null || _movementAction == null)
+		if ( _playerMovement == null || _movementAction == null )
 		{
 			return;
 		}
