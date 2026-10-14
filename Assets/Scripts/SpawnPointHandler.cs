@@ -13,6 +13,7 @@ public class SpawnPointHandler : MonoBehaviour
 	private Collider _collider;
 	private bool _canSpawn = true;
 	private byte _activeUnits = 0;
+	private float _timestampOfLastSpawn = 0F;
 
 	private void Awake()
 	{
@@ -28,7 +29,7 @@ public class SpawnPointHandler : MonoBehaviour
 	{
 		_canSpawn = _activeUnits < _maxUnitCount;
 
-		if (_canSpawn)
+		if (_canSpawn && Time.time - _timestampOfLastSpawn > _spawnInterval)
 		{
 			SpawnUnit();
 		}
@@ -42,5 +43,6 @@ public class SpawnPointHandler : MonoBehaviour
 		Vector3 offset = new Vector3(0F, _collider.bounds.max.y + 0.05F, 0F);
 		Instantiate(_unitTemplate, transform.position + offset, transform.rotation);
 		_activeUnits++;
+		_timestampOfLastSpawn = Time.time;
 	}
 }
