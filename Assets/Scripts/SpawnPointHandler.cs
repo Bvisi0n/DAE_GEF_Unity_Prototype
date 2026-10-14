@@ -26,23 +26,21 @@ public class SpawnPointHandler : MonoBehaviour
 
 	private void Update()
 	{
-		if (_activeUnits < _maxUnitCount)
-		{
-			_canSpawn = true;
-		}
-		else
-		{
-			_canSpawn = false;
-		}
+		_canSpawn = _activeUnits < _maxUnitCount;
 
 		if (_canSpawn)
 		{
-			Vector3 offset = new Vector3(0F, _collider.bounds.max.y + 0.05F, 0F);
-			Instantiate(_unitTemplate, transform.position + offset, transform.rotation);
-			_activeUnits++;
+			SpawnUnit();
 		}
 
 		// TODO: When a unit gets destroyed, _activeUnits should also go down by one.
 		// Ideally using events but for now the unit could just call a function in this object upon destruction.
+	}
+
+	private void SpawnUnit()
+	{
+		Vector3 offset = new Vector3(0F, _collider.bounds.max.y + 0.05F, 0F);
+		Instantiate(_unitTemplate, transform.position + offset, transform.rotation);
+		_activeUnits++;
 	}
 }
