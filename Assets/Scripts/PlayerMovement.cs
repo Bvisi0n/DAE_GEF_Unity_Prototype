@@ -49,7 +49,7 @@ public sealed class PlayerMovement : MonoBehaviour
 
 	public void Jump()
 	{
-		if ( !_grounded )
+		if (!_grounded)
 		{
 			return;
 		}
@@ -63,11 +63,11 @@ public sealed class PlayerMovement : MonoBehaviour
 		_jumpPhaseActive = velocity.y < -_apexVelocityThreshold;
 		float gravityMultiplier;
 
-		if ( _jumpPhaseActive && Mathf.Abs( velocity.y ) <= _apexVelocityThreshold )
+		if (_jumpPhaseActive && Mathf.Abs( velocity.y) <= _apexVelocityThreshold)
 		{
 			gravityMultiplier = _apexGravityMultiplier;
 		}
-		else if ( velocity.y > 0F )
+		else if (velocity.y > 0F)
 		{
 			gravityMultiplier = _ascentGravityMultiplier;
 		}
@@ -76,7 +76,7 @@ public sealed class PlayerMovement : MonoBehaviour
 			gravityMultiplier = _fallGravityMultiplier;
 		}
 
-		_rigidBody.AddForce( Physics.gravity * ( gravityMultiplier - 1F ), ForceMode.Acceleration );
+		_rigidBody.AddForce(Physics.gravity * (gravityMultiplier - 1F), ForceMode.Acceleration);
 	}
 
 	private void HandleMovement()
@@ -91,9 +91,9 @@ public sealed class PlayerMovement : MonoBehaviour
 	{
 		float epsilon = 0.05F;
 		Bounds bounds = _collider.bounds;
-		Vector3 origin = new( bounds.center.x, bounds.min.y + epsilon, bounds.center.z );
-		int layerMask = LayerMask.GetMask( k_GroundLayer );
-		_grounded = Physics.Raycast( origin, Vector3.down, k_GroundCheckDistance, layerMask );
+		Vector3 origin = new(bounds.center.x, bounds.min.y + epsilon, bounds.center.z);
+		int layerMask = LayerMask.GetMask(k_GroundLayer);
+		_grounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, layerMask);
 	}
 
 	private void StartJumpPhase()
