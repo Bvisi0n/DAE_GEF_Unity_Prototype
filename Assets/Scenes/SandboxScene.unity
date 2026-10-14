@@ -857,8 +857,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _spawnInterval: 5
-  _maxUnitCount: 1
-  _unitTemplate: {fileID: 0}
+  _maxUnitCount: 3
+  _unitTemplate: {fileID: 3151823875788373056, guid: dbba28a656a4f854e80cb3fa353f7e0b, type: 3}
 --- !u!1 &1702953384
 GameObject:
   m_ObjectHideFlags: 0
