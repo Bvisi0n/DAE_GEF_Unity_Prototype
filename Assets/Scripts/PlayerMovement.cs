@@ -94,6 +94,7 @@ public sealed class PlayerMovement : MonoBehaviour
 		Vector3 origin = new(bounds.center.x, bounds.min.y + epsilon, bounds.center.z);
 		int layerMask = LayerMask.GetMask(k_GroundLayer);
 		_grounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, layerMask);
+		// BUG: Grounded only if actually standing on an object from the "Ground" layer.
 	}
 
 	private void StartJumpPhase()
