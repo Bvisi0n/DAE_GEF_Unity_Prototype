@@ -1,5 +1,10 @@
 using UnityEngine;
 
+// FEEDBACK: 26/10/14 9AM by Arene Six
+// Movement feels stiff, use forces instead of setting velocity directly.
+// Play some action platformers like Celeste and Hollow Knight to get a feel.
+// You'll notice the character glides a accelerates and decelerates, keep it snappy tho!
+
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
 public sealed class PlayerMovement : MonoBehaviour
