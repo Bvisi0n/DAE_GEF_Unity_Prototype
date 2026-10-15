@@ -1,20 +1,32 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerAttack))]
 [RequireComponent(typeof(PlayerMovement))]
 public sealed class PlayerInputHandler : MonoBehaviour
 {
 	[SerializeField] private InputActionAsset _inputAsset;
 	[SerializeField] private InputActionReference _movementAction;
 	[SerializeField] private InputActionReference _jumpAction;
+	[SerializeField] private InputActionReference _shootAction;
 
+	private PlayerAttack _playerAttack;
 	private PlayerMovement _playerMovement;
 	private bool _isConfigured;
 
 	private void Awake()
 	{
+		_playerAttack = GetComponent<PlayerAttack>();
 		_playerMovement = GetComponent<PlayerMovement>();
-		_isConfigured = _inputAsset != null && _movementAction != null && _movementAction.action != null && _jumpAction != null && _jumpAction.action != null;
+		
+		_isConfigured
+			= _inputAsset != null
+			&& _movementAction != null
+			&& _movementAction.action != null
+			&& _jumpAction != null
+			&& _jumpAction.action != null
+			&& _shootAction != null
+			&& _shootAction.action != null;
 
 		if (!_isConfigured)
 		{
@@ -52,6 +64,7 @@ public sealed class PlayerInputHandler : MonoBehaviour
 	private void Update()
 	{
 		HandleAimingInput();
+		HandleShootInput();
 		HandleMovementInput();
 	}
 
@@ -67,6 +80,14 @@ public sealed class PlayerInputHandler : MonoBehaviour
 		Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 		worldMousePosition.z = 0F;
 		_playerMovement.DesiredLookAtPoint = worldMousePosition;
+	}
+
+	private void HandleShootInput()
+	{
+		if (_playerAttack != null && _shootAction.action.IsPressed())
+		{
+			_playerAttack.Fire();
+		}
 	}
 
 	private void HandleMovementInput()

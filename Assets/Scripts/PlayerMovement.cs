@@ -4,6 +4,8 @@ using UnityEngine;
 // Movement feels stiff, use forces instead of setting velocity directly.
 // Play some action platformers like Celeste and Hollow Knight to get a feel.
 // You'll notice the character glides a accelerates and decelerates, keep it snappy tho!
+// GDC Festival of Gaming: Math for Game Programmers: Building a Better Jump
+// https://youtu.be/hG9SzQxaCm8?si=HR7YLmNufOJKsG6R
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
@@ -29,7 +31,7 @@ public sealed class PlayerMovement : MonoBehaviour
 	private Vector3 _desiredLookAtPoint;
 	private Vector3 _desiredMovementDirection;
 	
-	private bool _grounded;
+	private bool _isGrounded;
 	private int _groundLayerMask;
 	private bool _jumpPhaseActive;
 	private float _jumpStartHeight;
@@ -56,8 +58,7 @@ public sealed class PlayerMovement : MonoBehaviour
 
 		if (_groundLayerMask == 0)
 		{
-			Debug.LogError(
-				$"Layer '{k_GroundLayer}' does not exist or is not configured.", this);
+			Debug.LogError($"Layer '{k_GroundLayer}' does not exist or is not configured.", this);
 		}
 
 		_collider = GetComponent<Collider>();
@@ -78,7 +79,9 @@ public sealed class PlayerMovement : MonoBehaviour
 
 	public void Jump()
 	{
-		if (!_grounded)
+		Debug.Log($"Called the method Jump(), _isGrounded is {_isGrounded}.", this);
+
+		if (!_isGrounded)
 		{
 			return;
 		}
@@ -121,7 +124,7 @@ public sealed class PlayerMovement : MonoBehaviour
 		float epsilon = 0.05F;
 		Bounds bounds = _collider.bounds;
 		Vector3 origin = new(bounds.center.x, bounds.min.y + epsilon, bounds.center.z);
-		_grounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, _groundLayerMask);
+		_isGrounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, _groundLayerMask);
 		// BUG: Grounded only if actually standing on an object from the "Ground" layer.
 	}
 
@@ -139,7 +142,7 @@ public sealed class PlayerMovement : MonoBehaviour
 	{
 		_jumpStartHeight = _rigidBody.position.y;
 		_jumpPhaseActive = true;
-		_grounded = false;
+		_isGrounded = false;
 
 		Vector3 velocity = _rigidBody.linearVelocity;
 		velocity.y = _jumpLaunchSpeed;
