@@ -83,11 +83,9 @@ public sealed class PlayerInputHandler : MonoBehaviour
 
 	private void HandleJumpInput(InputAction.CallbackContext context)
 	{
-		if (_playerMovement == null)
+		if (_playerMovement != null)
 		{
-			return;
+			_playerMovement.Jump();
 		}
-
-		_playerMovement.Jump();
 	}
 }
