@@ -25,6 +25,7 @@ public sealed class PlayerMovement : MonoBehaviour
 	private Vector3 _desiredMovementDirection;
 	
 	private bool _grounded;
+	private int _groundLayerMask;
 	private bool _jumpPhaseActive;
 	private float _jumpStartHeight;
 
@@ -36,6 +37,14 @@ public sealed class PlayerMovement : MonoBehaviour
 
 	private void Awake()
 	{
+		_groundLayerMask = LayerMask.GetMask(k_GroundLayer);
+
+		if (_groundLayerMask == 0)
+		{
+			Debug.LogError(
+				$"Layer '{k_GroundLayer}' does not exist or is not configured.", this);
+		}
+
 		_collider = GetComponent<Collider>();
 		_rigidBody = GetComponent<Rigidbody>();
 	}
@@ -92,8 +101,7 @@ public sealed class PlayerMovement : MonoBehaviour
 		float epsilon = 0.05F;
 		Bounds bounds = _collider.bounds;
 		Vector3 origin = new(bounds.center.x, bounds.min.y + epsilon, bounds.center.z);
-		int layerMask = LayerMask.GetMask(k_GroundLayer);
-		_grounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, layerMask);
+		_grounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, _groundLayerMask);
 		// BUG: Grounded only if actually standing on an object from the "Ground" layer.
 	}
 
