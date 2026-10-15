@@ -3,17 +3,17 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class SpawnPointHandler : MonoBehaviour
 {
-	[SerializeField] float _spawnInterval = 5F;
+	[SerializeField, Min(0F)] private float _spawnInterval = 5F;
 
-	[SerializeField, Tooltip("Maximum amount of units this spawnpoint can have active at a time.")]
-	byte _maxUnitCount = 1;
+	[SerializeField, Min(1), Tooltip("Maximum amount of units this spawnpoint can have active at a time.")]
+	private int _maxUnitCount = 1;
 
-	[SerializeField] GameObject _unitTemplate;
+	[SerializeField] private GameObject _unitTemplate;
 
 	private Collider _collider;
 	private bool _canSpawn = true;
-	private byte _activeUnits = 0;
-	private float _timestampOfLastSpawn = 0F;
+	private int _activeUnits;
+	private float _timestampOfLastSpawn;
 
 	private void Awake()
 	{
