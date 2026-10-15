@@ -14,11 +14,16 @@ public sealed class PlayerInputHandler : MonoBehaviour
 	private void Awake()
 	{
 		_playerMovement = GetComponent<PlayerMovement>();
-		_isConfigured = _movementAction != null && _jumpAction != null;
+		_isConfigured = _inputAsset != null && _movementAction != null && _movementAction.action != null && _jumpAction != null && _jumpAction.action != null;
 
 		if (!_isConfigured)
 		{
-			Debug.LogError( "InputActionAsset is not properly configured.", this );
+			Debug.LogError("Incomplete input configuration.", this);
+		}
+
+		if (Camera.main == null)
+		{
+			Debug.LogWarning("No MainCamera was found. Aiming input will be skipped.", this);
 		}
 	}
 
@@ -46,17 +51,22 @@ public sealed class PlayerInputHandler : MonoBehaviour
 
 	private void Update()
 	{
+		HandleAimingInput();
 		HandleMovementInput();
 	}
 
-	private void HandleJumpInput(InputAction.CallbackContext context)
+	private void HandleAimingInput()
 	{
-		if (_playerMovement == null)
+		if (Mouse.current == null || Camera.main == null)
 		{
 			return;
 		}
 
-		_playerMovement.Jump();
+		Vector3 mousePosition = Mouse.current.position.ReadValue();
+		mousePosition.z = Mathf.Abs(transform.position.z - Camera.main.transform.position.z);
+		Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+		worldMousePosition.z = 0F;
+		_playerMovement.DesiredLookAtPoint = worldMousePosition;
 	}
 
 	private void HandleMovementInput()
@@ -69,5 +79,15 @@ public sealed class PlayerInputHandler : MonoBehaviour
 		float movementInput = _movementAction.action.ReadValue<float>();
 		Vector3 movement = movementInput * Vector3.right;
 		_playerMovement.DesiredMovementDirection = movement;
+	}
+
+	private void HandleJumpInput(InputAction.CallbackContext context)
+	{
+		if (_playerMovement == null)
+		{
+			return;
+		}
+
+		_playerMovement.Jump();
 	}
 }

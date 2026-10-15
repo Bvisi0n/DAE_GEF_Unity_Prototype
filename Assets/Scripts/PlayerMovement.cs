@@ -12,6 +12,10 @@ public sealed class PlayerMovement : MonoBehaviour
 	private const float k_GroundCheckDistance = 0.2F;
 	private const string k_GroundLayer = "Ground";
 
+	[Header("References")]
+	[SerializeField] private GameObject _shoulderSocket;
+
+	[Header("Movement")]
 	[SerializeField] private float _movementSpeed = 7F;
 	[SerializeField] private float _jumpLaunchSpeed = 11F;
 	[SerializeField] private float _ascentGravityMultiplier = 2F;
@@ -22,6 +26,7 @@ public sealed class PlayerMovement : MonoBehaviour
 	private Collider _collider;
 	private Rigidbody _rigidBody;
 
+	private Vector3 _desiredLookAtPoint;
 	private Vector3 _desiredMovementDirection;
 	
 	private bool _grounded;
@@ -29,6 +34,11 @@ public sealed class PlayerMovement : MonoBehaviour
 	private bool _jumpPhaseActive;
 	private float _jumpStartHeight;
 
+	public Vector3 DesiredLookAtPoint
+	{
+		get { return _desiredLookAtPoint; }
+		set { _desiredLookAtPoint = value; }
+	}
 	public Vector3 DesiredMovementDirection
 	{
 		get { return _desiredMovementDirection; }
@@ -37,6 +47,11 @@ public sealed class PlayerMovement : MonoBehaviour
 
 	private void Awake()
 	{
+		if (_shoulderSocket == null)
+		{
+			Debug.LogError("Shoulder Socket is not assigned.", this);
+		}
+
 		_groundLayerMask = LayerMask.GetMask(k_GroundLayer);
 
 		if (_groundLayerMask == 0)
@@ -54,6 +69,11 @@ public sealed class PlayerMovement : MonoBehaviour
 		ApplyJumpGravity();
 		HandleMovement();
 		CheckGrounded();
+	}
+
+	private void Update()
+	{
+		HandleLookAt();
 	}
 
 	public void Jump()
@@ -103,6 +123,16 @@ public sealed class PlayerMovement : MonoBehaviour
 		Vector3 origin = new(bounds.center.x, bounds.min.y + epsilon, bounds.center.z);
 		_grounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, _groundLayerMask);
 		// BUG: Grounded only if actually standing on an object from the "Ground" layer.
+	}
+
+	private void HandleLookAt()
+	{
+		if (_shoulderSocket == null)
+		{
+			return;
+		}
+
+		_shoulderSocket.transform.LookAt(_desiredLookAtPoint);
 	}
 
 	private void StartJumpPhase()
