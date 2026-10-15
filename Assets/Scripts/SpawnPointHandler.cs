@@ -11,7 +11,6 @@ public class SpawnPointHandler : MonoBehaviour
 	[SerializeField] private GameObject _unitTemplate;
 
 	private Collider _collider;
-	private bool _canSpawn = true;
 	private int _activeUnits;
 	private float _timestampOfLastSpawn;
 
@@ -19,7 +18,8 @@ public class SpawnPointHandler : MonoBehaviour
 	{
 		if (_unitTemplate == null)
 		{
-			Debug.LogError("Missing dependencies!", this);
+			Debug.LogError("Unit Template is not assigned, object is disabled.", this);
+			enabled = false;
 		}
 
 		_collider = GetComponent<Collider>();
@@ -27,15 +27,20 @@ public class SpawnPointHandler : MonoBehaviour
 
 	private void Update()
 	{
-		_canSpawn = _activeUnits < _maxUnitCount;
-
-		if (_canSpawn && Time.time - _timestampOfLastSpawn > _spawnInterval)
+		if (_activeUnits >= _maxUnitCount)
 		{
-			SpawnUnit();
+			return;
 		}
 
+		if (Time.time - _timestampOfLastSpawn < _spawnInterval)
+		{
+			return;
+		}
+
+		SpawnUnit();
+
 		// TODO: When a unit gets destroyed, _activeUnits should also go down by one.
-		// Ideally using events but for now the unit could just call a function in this object upon destruction.
+		// Events? Some kind of manager object? Instantiate as children?
 	}
 
 	private void SpawnUnit()
