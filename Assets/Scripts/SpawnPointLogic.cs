@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class SpawnPointHandler : MonoBehaviour
+public class SpawnPointLogic : MonoBehaviour
 {
 	[SerializeField, Min(0F)] private float _spawnInterval = 5F;
 
