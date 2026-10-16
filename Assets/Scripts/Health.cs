@@ -41,4 +41,11 @@ public class Health : MonoBehaviour
 
 		Debug.Log($"Called the method ChangeHealth({amount}), _canTakeDamage is {_canTakeDamage} and current health is now {_currentHealth}.", this);
 	}
+
+	/// <summary>Instruct the GameObject to self destruct.</summary>
+	/// <remarks>Bypasses CanTakeDamage flag.</remarks>
+	public void Die()
+	{
+		Destroy(gameObject);
+	}
 }
