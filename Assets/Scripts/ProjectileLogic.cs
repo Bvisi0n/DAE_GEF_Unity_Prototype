@@ -8,6 +8,7 @@ public class ProjectileLogic : MonoBehaviour
 
 	[SerializeField, Min(0F)] private float _speed = 20F;
 	[SerializeField, Min(0F)] private float _lifeTime = 10.0F;
+	[SerializeField, Min(0F)] private int _damage = 1;
 
 	private int _layerMask;
 
@@ -41,12 +42,16 @@ public class ProjectileLogic : MonoBehaviour
 			return;
 		}
 
-		// TODO: Collision logic.
+		Health otherHealth = other.GetComponent<Health>();
+
+		if (otherHealth != null)
+		{
+			otherHealth.ChangeHealth(-_damage);
+			Destroy(gameObject);
+		}
 	}
 
-	/// <remarks>
-	/// Should only be called from FixedUpdate().
-	/// </remarks>
+	/// <remarks>Should only be called from FixedUpdate().</remarks>
 	private bool IsTouchingStaticObject()
 	{
 		Ray collisionRay = new(transform.position, transform.forward);
