@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -15,6 +16,8 @@ public class SpawnPointLogic : MonoBehaviour
 	private Health _health;
 	private int _activeUnits;
 	private float _timestampOfLastSpawn;
+
+	public event Action<SpawnPointLogic> Destroyed;
 
 	private void Awake()
 	{
@@ -46,6 +49,11 @@ public class SpawnPointLogic : MonoBehaviour
 		}
 
 		SpawnUnit();
+	}
+
+	private void OnDestroy()
+	{
+		Destroyed?.Invoke(this);
 	}
 
 	private void SpawnUnit()
