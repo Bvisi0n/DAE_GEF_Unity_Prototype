@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class ObjectiveManagerLogic : MonoBehaviour
 {
 	private int _remainingSpawnPoints;
+	private bool _isEnding;
 
 	private void Awake()
 	{
@@ -19,6 +20,19 @@ public class ObjectiveManagerLogic : MonoBehaviour
 		{
 			item.Destroyed += OnSpawnPointDestroyed;
 		}
+
+		PlayerLogic player = FindAnyObjectByType<PlayerLogic>();
+
+		if (player == null)
+		{
+			Debug.LogWarning("PlayerLogic script could not be found in this scene.", this);
+		}
+		else
+		{
+			player.Destroyed += OnPlayerDestroyed;
+		}
+
+		_isEnding = false;
 	}
 
 	private void OnSpawnPointDestroyed(SpawnPointLogic spawnPoint)
@@ -32,9 +46,37 @@ public class ObjectiveManagerLogic : MonoBehaviour
 		}
 	}
 
+	private void OnPlayerDestroyed(PlayerLogic player)
+	{
+		Debug.Log("The player died.", this);
+		player.Destroyed -= OnPlayerDestroyed;
+		GameOver();
+		
+	}
+
 	private void CompleteLevel()
 	{
 		Debug.Log("Level completed.", this);
+
+		if (_isEnding)
+		{
+			return;
+		}
+
+		_isEnding = true;
+		SceneManager.LoadScene(0);
+	}
+
+	private void GameOver()
+	{
+		Debug.Log("Lose condition was triggered.", this);
+
+		if (_isEnding)
+		{
+			return;
+		}
+
+		_isEnding = true;
 		SceneManager.LoadScene(0);
 	}
 }
