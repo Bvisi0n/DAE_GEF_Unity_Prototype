@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Health))]
 public class SpawnPointLogic : MonoBehaviour
 {
 	[SerializeField, Min(0F)] private float _spawnInterval = 5F;
@@ -11,6 +12,7 @@ public class SpawnPointLogic : MonoBehaviour
 	[SerializeField] private GameObject _unitTemplate;
 
 	private Collider _collider;
+	private Health _health;
 	private int _activeUnits;
 	private float _timestampOfLastSpawn;
 
@@ -23,6 +25,12 @@ public class SpawnPointLogic : MonoBehaviour
 		}
 
 		_collider = GetComponent<Collider>();
+		_health = GetComponent<Health>();
+	}
+
+	private void Start()
+	{
+		_health.CanTakeDamage = false;
 	}
 
 	private void Update()
@@ -38,16 +46,37 @@ public class SpawnPointLogic : MonoBehaviour
 		}
 
 		SpawnUnit();
-
-		// TODO: When a unit gets destroyed, _activeUnits should also go down by one.
-		// Events? Some kind of manager object? Instantiate as children?
 	}
 
 	private void SpawnUnit()
 	{
 		Vector3 offset = new Vector3(0F, _collider.bounds.max.y + 0.05F, 0F);
-		Instantiate(_unitTemplate, transform.position + offset, transform.rotation);
+		
+		GameObject enemy = Instantiate(_unitTemplate, transform.position + offset, transform.rotation);
+		EnemyLogic enemyLogic = enemy.GetComponent<EnemyLogic>();
+
+		if (enemyLogic == null)
+		{
+			Debug.LogError("EnemyLogic script not found on spawned GameObject.", this);
+			return;
+		}
+
+		enemyLogic.Died += OnEnemyDied;
 		_activeUnits++;
+		_health.CanTakeDamage = false;
+		_timestampOfLastSpawn = Time.time;
+	}
+
+	private void OnEnemyDied(EnemyLogic enemyLogic)
+	{
+		enemyLogic.Died -= OnEnemyDied;
+		_activeUnits--;
+
+		if (_activeUnits <= 0)
+		{
+			_health.CanTakeDamage = true;
+		}
+
 		_timestampOfLastSpawn = Time.time;
 	}
 }
