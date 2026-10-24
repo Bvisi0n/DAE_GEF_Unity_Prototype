@@ -550,7 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   _projectileTemplate: {fileID: 5281794163669075755, guid: b1727dfc15a3a73468c9eb1014c3bf78, type: 3}
   _projectileSocket: {fileID: 1921317346}
-  _attackCooldown: 1
+  _attackCooldown: 0.5
 --- !u!114 &823478960
 MonoBehaviour:
   m_ObjectHideFlags: 0
