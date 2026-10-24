@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 // TODO: Feedback - How can the player know which unit belongs to wich spawnpoint?
+// TODO: Refactor - Split this logic up in seperate specialized scripts.
 
 [System.Serializable]
 public enum State { Idle, Chase, Attack }
@@ -193,7 +194,6 @@ public class EnemyLogic : MonoBehaviour
 
 	private void AttackTarget()
 	{
-		// TODO: Feature - Attack player.
 		if (_attackTarget == null)
 		{
 			return;
