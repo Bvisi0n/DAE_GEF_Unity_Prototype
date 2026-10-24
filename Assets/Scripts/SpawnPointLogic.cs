@@ -37,7 +37,7 @@ public sealed class SpawnPointLogic : MonoBehaviour
 
 	private void Start()
 	{
-		_health.CanTakeDamage = false;
+		_health.CanHealthChange = false;
 	}
 
 	private void Update()
@@ -81,7 +81,7 @@ public sealed class SpawnPointLogic : MonoBehaviour
 		enemyLogic.Died += OnEnemyDied;
 		enemyLogic.SpawnPointPosition = transform.position;
 		_activeUnits++;
-		_health.CanTakeDamage = false;
+		_health.CanHealthChange = false;
 		_timestampOfLastSpawn = Time.time;
 	}
 
@@ -97,7 +97,7 @@ public sealed class SpawnPointLogic : MonoBehaviour
 
 		if (_activeUnits <= 0)
 		{
-			_health.CanTakeDamage = true;
+			_health.CanHealthChange = true;
 		}
 
 		_timestampOfLastSpawn = Time.time;

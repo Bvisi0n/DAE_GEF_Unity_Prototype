@@ -5,17 +5,17 @@ public sealed class Health : MonoBehaviour
 	[SerializeField, Min(1)] int _maxHealth = 10;
 
 	private int _currentHealth;
-	private bool _canTakeDamage = true;
+	private bool _canHealthChange = true;
 
 	public int CurrentHealth
 	{
 		get { return _currentHealth; }
 	}
 
-	public bool CanTakeDamage
+	public bool CanHealthChange
 	{
-		get { return _canTakeDamage; }
-		set { _canTakeDamage = value; }
+		get { return _canHealthChange; }
+		set { _canHealthChange = value; }
 	}
 
 	private void Start()
@@ -34,12 +34,12 @@ public sealed class Health : MonoBehaviour
 	/// <remarks>Pass negative values to decrease current health.</remarks>
 	public void ChangeHealth(int amount)
 	{
-		if (_canTakeDamage)
+		if (_canHealthChange)
 		{
 			_currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
 		}
 
-		Debug.Log($"Called the method ChangeHealth({amount}), _canTakeDamage is {_canTakeDamage} and current health is now {_currentHealth}.", this);
+		Debug.Log($"Called the method ChangeHealth({amount}), _canTakeDamage is {_canHealthChange} and current health is now {_currentHealth}.", this);
 	}
 
 	/// <summary>Instruct the GameObject to self destruct.</summary>
