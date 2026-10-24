@@ -67,7 +67,7 @@ public class SpawnPointLogic : MonoBehaviour
 	/// </summary>
 	private void SpawnUnit()
 	{
-		Vector3 offset = new Vector3(0F, _collider.bounds.max.y + 0.05F, 0F);
+		Vector3 offset = new(0F, _collider.bounds.max.y + 0.05F, 0F);
 		
 		GameObject enemy = Instantiate(_unitTemplate, transform.position + offset, transform.rotation);
 		EnemyLogic enemyLogic = enemy.GetComponent<EnemyLogic>();
@@ -79,6 +79,7 @@ public class SpawnPointLogic : MonoBehaviour
 		}
 
 		enemyLogic.Died += OnEnemyDied;
+		enemyLogic.SpawnPointPosition = transform.position;
 		_activeUnits++;
 		_health.CanTakeDamage = false;
 		_timestampOfLastSpawn = Time.time;
