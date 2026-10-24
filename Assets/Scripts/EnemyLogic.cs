@@ -170,6 +170,11 @@ public class EnemyLogic : MonoBehaviour
 			return;
 		}
 
-		_navMeshAgent.destination = _attackTarget.transform.position;
+		float destinationChangeCooldown = 0.5F;
+		if (Time.time - _timestampOfLastDestinationChange > destinationChangeCooldown)
+		{
+			_timestampOfLastDestinationChange = Time.time;
+			_navMeshAgent.destination = _attackTarget.transform.position;
+		}
 	}
 }
