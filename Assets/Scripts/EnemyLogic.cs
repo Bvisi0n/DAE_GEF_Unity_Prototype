@@ -130,10 +130,7 @@ public class EnemyLogic : MonoBehaviour
 
 		if (IsPlayerInRange(_attackRange))
 		{
-			if (_attackTimer > 0.0F)
-			{
-				_attackTimer -= Time.deltaTime;
-			}
+			_attackTimer -= Time.deltaTime;
 
 			if (_attackTimer <= 0.0F)
 			{
@@ -199,12 +196,15 @@ public class EnemyLogic : MonoBehaviour
 			return;
 		}
 
+		_attackTimer += _attackCooldown;
 		Health targetHealth = _attackTarget.GetComponent<Health>();
 
-		if (targetHealth != null)
+		if (targetHealth == null)
 		{
-			targetHealth.ChangeHealth(-_attackDamage);
+			Debug.LogWarning("Target has no health to deal damage too.", this);
+			return;
 		}
-		_attackTimer = _attackCooldown;
+
+		targetHealth.ChangeHealth(-_attackDamage);
 	}
 }
