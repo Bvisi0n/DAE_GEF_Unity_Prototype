@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 
+// TODO: Feedback -  How many units are under the control of this spawnpoint?
+
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Health))]
 public class SpawnPointLogic : MonoBehaviour
@@ -51,11 +53,18 @@ public class SpawnPointLogic : MonoBehaviour
 		SpawnUnit();
 	}
 
+	/// <summary>
+	/// Notify observers about my destruction.
+	/// </summary>
 	private void OnDestroy()
 	{
 		Destroyed?.Invoke(this);
 	}
 
+	/// <summary>
+	/// Spawn a unit above myself, subscribes to it's destruction event, give it my position,
+	/// update the unit count under my control, disable my vulnerability and reset the spawn cooldown.
+	/// </summary>
 	private void SpawnUnit()
 	{
 		Vector3 offset = new Vector3(0F, _collider.bounds.max.y + 0.05F, 0F);
@@ -75,6 +84,11 @@ public class SpawnPointLogic : MonoBehaviour
 		_timestampOfLastSpawn = Time.time;
 	}
 
+	/// <summary>
+	/// Unsubscribe from the observed object,
+	/// reset the spawn cooldown to prevent an instant respawn,
+	/// update the count of units under my control and set my vulnerability accordingly.
+	/// </summary>
 	private void OnEnemyDied(EnemyLogic enemyLogic)
 	{
 		enemyLogic.Died -= OnEnemyDied;

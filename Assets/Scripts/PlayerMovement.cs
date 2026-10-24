@@ -1,9 +1,6 @@
 using UnityEngine;
 
-// FEEDBACK: 26/10/14 9AM by Arene Six
-// Movement feels stiff, use forces instead of setting velocity directly.
-// Play some action platformers like Celeste and Hollow Knight to get a feel.
-// You'll notice the character glides a accelerates and decelerates, keep it snappy tho!
+// TODO: Rework - Movement doesn't feel quite right.
 // GDC Festival of Gaming: Math for Game Programmers: Building a Better Jump
 // https://youtu.be/hG9SzQxaCm8?si=HR7YLmNufOJKsG6R
 
@@ -125,7 +122,7 @@ public sealed class PlayerMovement : MonoBehaviour
 		Bounds bounds = _collider.bounds;
 		Vector3 origin = new(bounds.center.x, bounds.min.y + epsilon, bounds.center.z);
 		_isGrounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, _groundLayerMask);
-		// BUG: Grounded only if actually standing on an object from the "Ground" layer.
+		// TODO: Bug - Grounded only if actually standing on an object from the "Ground" layer.
 	}
 
 	private void HandleLookAt()
@@ -135,6 +132,7 @@ public sealed class PlayerMovement : MonoBehaviour
 			return;
 		}
 
+		// TODO: Bug - Player can aim inside itself.
 		_shoulderSocket.transform.LookAt(_desiredLookAtPoint);
 	}
 
