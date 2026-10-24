@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public sealed class Health : MonoBehaviour
@@ -6,6 +7,8 @@ public sealed class Health : MonoBehaviour
 
 	private int _currentHealth;
 	private bool _canHealthChange = true;
+
+	public event Action<int> Damaged;
 
 	public int CurrentHealth
 	{
@@ -36,7 +39,14 @@ public sealed class Health : MonoBehaviour
 	{
 		if (_canHealthChange)
 		{
+			int previousHealth = _currentHealth;
 			_currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
+			int healthLost = previousHealth - _currentHealth;
+
+			if (healthLost > 0)
+			{
+				Damaged?.Invoke(healthLost);
+			}
 		}
 
 		Debug.Log($"Called the method ChangeHealth({amount}), _canTakeDamage is {_canHealthChange} and current health is now {_currentHealth}.", this);

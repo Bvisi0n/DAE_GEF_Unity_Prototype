@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3314195881516372624}
   - component: {fileID: 3794713216670148705}
   - component: {fileID: 6950290096288033641}
-  - component: {fileID: 8791309649227845003}
   - component: {fileID: 2550958452108646632}
+  - component: {fileID: 8791309649227845003}
+  - component: {fileID: -719191447806828415}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -81,6 +82,23 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2550958452108646632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3151823875788373056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703d52aa8d037d242957a82aa18733be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _attackDamage: 1
+  _attackCooldown: 1
+  _attackRange: 2
+  _spotRange: 10
+  _idleWanderRange: 10
 --- !u!114 &8791309649227845003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _maxHealth: 1
---- !u!114 &2550958452108646632
+--- !u!114 &-719191447806828415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,13 +121,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3151823875788373056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 703d52aa8d037d242957a82aa18733be, type: 3}
+  m_Script: {fileID: 11500000, guid: 24e367759b3a8a149ac295313a8816ea, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  _attackCooldown: 1
-  _attackRange: 2
-  _spotRange: 10
-  _idleWanderRange: 10
+  m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _flashDuration: 0.1
 --- !u!1 &3344219926119458746
 GameObject:
   m_ObjectHideFlags: 0

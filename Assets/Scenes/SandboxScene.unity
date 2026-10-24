@@ -500,6 +500,7 @@ GameObject:
   - component: {fileID: 823478957}
   - component: {fileID: 823478959}
   - component: {fileID: 823478960}
+  - component: {fileID: 823478962}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -648,6 +649,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4ca9a77c4e3b84ab633dd815421e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLogic
+--- !u!114 &823478962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823478953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e367759b3a8a149ac295313a8816ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _flashDuration: 0.1
 --- !u!1001 &828859875
 PrefabInstance:
   m_ObjectHideFlags: 0
