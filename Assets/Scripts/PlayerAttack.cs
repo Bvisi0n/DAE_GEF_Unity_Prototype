@@ -24,10 +24,7 @@ public class PlayerAttack : MonoBehaviour
 
 	private void Update()
 	{
-		if (_fireTimer > 0.0F)
-		{
-			_fireTimer -= Time.deltaTime;
-		}
+		_fireTimer -= Time.deltaTime;
 
 		if (_fireTimer <= 0.0F && _triggerPulled)
 		{
