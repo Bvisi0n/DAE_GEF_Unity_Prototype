@@ -94,7 +94,7 @@ public class EnemyLogic : MonoBehaviour
 		if (_attackTarget == null)
 		{
 			_currentState = State.Idle;
-			Debug.Log($"{name} lost its target, changed to idle state.", this);
+			Debug.Log($"{name} lost its target (null), changed to idle state.", this);
 			return;
 		}
 
@@ -102,6 +102,11 @@ public class EnemyLogic : MonoBehaviour
 		{
 			_currentState = State.Attack;
 			Debug.Log($"{name} changed to attack state.", this);
+		}
+		else if (!IsPlayerInRange(_spotRange))
+		{
+			_currentState = State.Idle;
+			Debug.Log($"{name} lost its target (out of range), changed to idle state.", this);
 		}
 		else
 		{
