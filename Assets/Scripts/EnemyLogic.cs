@@ -32,14 +32,14 @@ public sealed class EnemyLogic : MonoBehaviour
 	private float _timestampOfLastDestinationChange;
 	private float _attackTimer;
 
+	public event Action<EnemyLogic> Died;
+
 	public Vector3 SpawnPointPosition
 	{
 		// TODO: Refactor - SpawnPointPosition isn't properly encapsulated.
 		get { return _spawnPointPosition; }
 		set { _spawnPointPosition = value; }
 	}
-
-	public event Action<EnemyLogic> Died;
 
 	private void Awake()
 	{
