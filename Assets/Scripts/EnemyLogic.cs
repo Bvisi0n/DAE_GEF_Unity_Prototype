@@ -10,6 +10,7 @@ public enum State { Idle, Chase, Attack }
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyLogic : MonoBehaviour
 {
+	[SerializeField, Min(0F)] private int _attackDamage = 1;
 	[SerializeField, Min(0F)] private float _attackCooldown = 1F;
 
 	[SerializeField, Min(0F), Tooltip("The range of the attack ability.")]
@@ -28,6 +29,7 @@ public class EnemyLogic : MonoBehaviour
 
 	// TODO: Bug - Uses Time.time which does not account for pause or lag.
 	private float _timestampOfLastDestinationChange;
+	private float _attackTimer;
 
 	public Vector3 SpawnPointPosition
 	{
@@ -127,7 +129,15 @@ public class EnemyLogic : MonoBehaviour
 
 		if (IsPlayerInRange(_attackRange))
 		{
-			// TODO: Feature - Attack player.
+			if (_attackTimer > 0.0F)
+			{
+				_attackTimer -= Time.deltaTime;
+			}
+
+			if (_attackTimer <= 0.0F)
+			{
+				AttackTarget();
+			}
 		}
 		else
 		{
@@ -179,5 +189,22 @@ public class EnemyLogic : MonoBehaviour
 			_timestampOfLastDestinationChange = Time.time;
 			_navMeshAgent.destination = _attackTarget.transform.position;
 		}
+	}
+
+	private void AttackTarget()
+	{
+		// TODO: Feature - Attack player.
+		if (_attackTarget == null)
+		{
+			return;
+		}
+
+		Health targetHealth = _attackTarget.GetComponent<Health>();
+
+		if (targetHealth != null)
+		{
+			targetHealth.ChangeHealth(-_attackDamage);
+		}
+		_attackTimer = _attackCooldown;
 	}
 }
