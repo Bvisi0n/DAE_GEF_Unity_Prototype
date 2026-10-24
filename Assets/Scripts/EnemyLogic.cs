@@ -197,9 +197,8 @@ public class EnemyLogic : MonoBehaviour
 		}
 
 		_attackTimer += _attackCooldown;
-		Health targetHealth = _attackTarget.GetComponent<Health>();
-
-		if (targetHealth == null)
+		
+		if (!_attackTarget.TryGetComponent<Health>(out var targetHealth))
 		{
 			Debug.LogWarning("Target has no health to deal damage too.", this);
 			return;

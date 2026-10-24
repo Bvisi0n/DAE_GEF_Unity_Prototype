@@ -70,11 +70,9 @@ public class SpawnPointLogic : MonoBehaviour
 	private void SpawnUnit()
 	{
 		Vector3 offset = new(0F, _collider.bounds.max.y + 0.05F, 0F);
-		
 		GameObject enemy = Instantiate(_unitTemplate, transform.position + offset, transform.rotation);
-		EnemyLogic enemyLogic = enemy.GetComponent<EnemyLogic>();
-
-		if (enemyLogic == null)
+		
+		if (!enemy.TryGetComponent<EnemyLogic>(out var enemyLogic))
 		{
 			Debug.LogError("EnemyLogic script not found on spawned GameObject.", this);
 			return;
