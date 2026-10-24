@@ -114,7 +114,7 @@ public class EnemyLogic : MonoBehaviour
 		}
 		else
 		{
-			ChaseTheTarget();
+			ChaseTarget();
 		}
 	}
 
@@ -174,7 +174,7 @@ public class EnemyLogic : MonoBehaviour
 		}
 	}
 
-	private void ChaseTheTarget()
+	private void ChaseTarget()
 	{
 		// TODO: Bug - Enemies can push player inside other objects.
 		if (!_navMeshAgent.isOnNavMesh)
