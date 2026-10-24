@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-// TODO: Feedback - How do I know which unit belongs to wich spawnpoint?
+// TODO: Feedback - How can the player know which unit belongs to wich spawnpoint?
 
 [System.Serializable]
 public enum State { Idle, Chase, Attack }
@@ -25,6 +25,8 @@ public class EnemyLogic : MonoBehaviour
 	private NavMeshAgent _navMeshAgent;
 	private Vector3 _spawnPointPosition;
 	private State _currentState;
+
+	// TODO: Bug - Uses Time.time which does not account for pause or lag.
 	private float _timestampOfLastDestinationChange;
 
 	public Vector3 SpawnPointPosition
@@ -164,6 +166,7 @@ public class EnemyLogic : MonoBehaviour
 
 	private void ChaseTheTarget()
 	{
+		// TODO: Bug - Enemies can push player inside other objects.
 		if (!_navMeshAgent.isOnNavMesh)
 		{
 			Debug.LogWarning("Agent is not on Nav Mesh Surface.", this);

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-// TODO: Feedback -  How many units are under the control of this spawnpoint?
+// TODO: Feedback -  How can the player see how many units are under the control of this spawnpoint?
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Health))]
@@ -17,6 +17,8 @@ public class SpawnPointLogic : MonoBehaviour
 	private Collider _collider;
 	private Health _health;
 	private int _activeUnits;
+
+	// TODO: Bug - Uses Time.time which does not account for pause or lag.
 	private float _timestampOfLastSpawn;
 
 	public event Action<SpawnPointLogic> Destroyed;
