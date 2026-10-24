@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public sealed class PlayerAttack : MonoBehaviour
 {
 	[SerializeField] private GameObject _projectileTemplate;
 	[SerializeField] private Transform _projectileSocket;

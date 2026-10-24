@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ObjectiveManagerLogic : MonoBehaviour
+public sealed class ObjectiveManagerLogic : MonoBehaviour
 {
 	private int _remainingSpawnPoints;
 	private bool _isEnding;

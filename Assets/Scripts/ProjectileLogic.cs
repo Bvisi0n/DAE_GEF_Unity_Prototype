@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ProjectileLogic : MonoBehaviour
+public sealed class ProjectileLogic : MonoBehaviour
 {
 	private const string k_StaticLevelLayer = "StaticLevel";
 	private const string k_GroundLayer = "Ground";

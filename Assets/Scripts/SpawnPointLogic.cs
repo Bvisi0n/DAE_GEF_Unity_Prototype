@@ -5,7 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Health))]
-public class SpawnPointLogic : MonoBehaviour
+public sealed class SpawnPointLogic : MonoBehaviour
 {
 	[SerializeField, Min(0F)] private float _spawnInterval = 5F;
 

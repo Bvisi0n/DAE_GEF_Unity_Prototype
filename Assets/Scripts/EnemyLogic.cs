@@ -9,7 +9,7 @@ using UnityEngine.AI;
 public enum State { Idle, Chase, Attack }
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class EnemyLogic : MonoBehaviour
+public sealed class EnemyLogic : MonoBehaviour
 {
 	[SerializeField, Min(0F)] private int _attackDamage = 1;
 	[SerializeField, Min(0F)] private float _attackCooldown = 1F;

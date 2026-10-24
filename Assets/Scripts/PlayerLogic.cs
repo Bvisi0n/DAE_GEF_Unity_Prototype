@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerLogic : MonoBehaviour
+public sealed class PlayerLogic : MonoBehaviour
 {
 	public event Action<PlayerLogic> Destroyed;
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DeathZoneLogic : MonoBehaviour
+public sealed class DeathZoneLogic : MonoBehaviour
 {
 	private void OnTriggerEnter(Collider other)
 	{
