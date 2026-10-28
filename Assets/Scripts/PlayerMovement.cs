@@ -11,10 +11,7 @@ public sealed class PlayerMovement : MonoBehaviour
 	private const float k_GroundCheckDistance = 0.2F;
 	private const string k_GroundLayer = "Ground";
 
-	[Header("References")]
 	[SerializeField] private GameObject _shoulderSocket;
-
-	[Header("Movement")]
 	[SerializeField] private float _movementSpeed = 7F;
 	[SerializeField] private float _jumpLaunchSpeed = 11F;
 	[SerializeField] private float _ascentGravityMultiplier = 2F;
@@ -116,6 +113,9 @@ public sealed class PlayerMovement : MonoBehaviour
 		_rigidBody.linearVelocity = movement;
 	}
 
+	/// <summary>
+	/// Checks wheter the object is touching a surface and sets the bool _grounded accordingly.
+	/// </summary>
 	private void CheckGrounded()
 	{
 		float epsilon = 0.05F;

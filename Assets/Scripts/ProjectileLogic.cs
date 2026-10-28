@@ -51,7 +51,9 @@ public sealed class ProjectileLogic : MonoBehaviour
 		}
 	}
 
-	/// <remarks>Should only be called from FixedUpdate().</remarks>
+	/// <remarks>
+	/// Should only be called from FixedUpdate().
+	/// </remarks>
 	private bool IsTouchingStaticObject()
 	{
 		Ray collisionRay = new(transform.position, transform.forward);

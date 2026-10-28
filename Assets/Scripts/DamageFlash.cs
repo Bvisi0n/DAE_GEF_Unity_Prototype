@@ -10,9 +10,16 @@ public sealed class DamageFlash : MonoBehaviour
 	[SerializeField, Min(0F)] private float _flashDuration = 0.1F;
 
 	private Health _health;
+
+	// https://docs.unity.com/en-us/engine/6000.3/script-reference/unityengine/renderer
+	// Renderer is a component of a gameobject.
 	private Renderer[] _renderers;
+
+	// https://docs.unity.com/en-us/engine/6000.3/script-reference/unityengine/materialpropertyblock
 	private MaterialPropertyBlock[] _originalBlocks;
 	private MaterialPropertyBlock _workingBlock;
+
+	// https://docs.unity.com/en-us/engine/6000.3/script-reference/unityengine/coroutine
 	private Coroutine _flashRoutine;
 
 	private void Awake()
@@ -75,18 +82,28 @@ public sealed class DamageFlash : MonoBehaviour
 		_flashRoutine = null;
 	}
 
+	/// <summary>
+	/// Applies the flash color to all renderer components in this gameobject and its children.
+	/// </summary>
 	private void ApplyFlashColor()
 	{
 		for (int index = 0; index < _renderers.Length; index++)
 		{
 			Renderer targetRenderer = _renderers[index];
+
+			// Store original block
 			targetRenderer.GetPropertyBlock(_originalBlocks[index]);
+
+			// Create and set flash block
 			targetRenderer.GetPropertyBlock(_workingBlock);
 			_workingBlock.SetColor(k_BaseColorId, _flashColor);
 			targetRenderer.SetPropertyBlock(_workingBlock);
 		}
 	}
 
+	/// <summary>
+	/// Restores the original color to all renderer components in this gameobject and its children.
+	/// </summary>
 	private void RestoreOriginalBlocks()
 	{
 		if (_renderers == null || _originalBlocks == null)

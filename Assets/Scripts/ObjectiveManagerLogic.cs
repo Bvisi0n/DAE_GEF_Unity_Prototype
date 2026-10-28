@@ -4,6 +4,11 @@ using UnityEngine.SceneManagement;
 public sealed class ObjectiveManagerLogic : MonoBehaviour
 {
 	private int _remainingSpawnPoints;
+
+	/// <remarks>
+	/// By default when LoadScene() is called the current scene gets destroyed,
+	/// this bool helps prevent LoadScene() from being called recursively.
+	/// </remarks>
 	private bool _isEnding;
 
 	private void Awake()

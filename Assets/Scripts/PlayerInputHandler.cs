@@ -1,17 +1,29 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// TODO: Refactor - Narrow down the scope of the _inputAsset.Enable() & .Disable() calls
+// Currently we are enabling and disabling the entire contents of the input asset which may not be what we want.
+// InputActionReference can't be toggled individually,
+// Look into InputAction & InputActionMap.
+
 [RequireComponent(typeof(PlayerAttack))]
 [RequireComponent(typeof(PlayerMovement))]
 public sealed class PlayerInputHandler : MonoBehaviour
 {
+	// https://docs.unity3d.com/Packages/com.unity.inputsystem@1.20/api/UnityEngine.InputSystem.InputActionAsset.html
 	[SerializeField] private InputActionAsset _inputAsset;
+
+	// https://docs.unity3d.com/Packages/com.unity.inputsystem@1.20/api/UnityEngine.InputSystem.InputActionReference.html
 	[SerializeField] private InputActionReference _movementAction;
 	[SerializeField] private InputActionReference _jumpAction;
 	[SerializeField] private InputActionReference _shootAction;
 
 	private PlayerAttack _playerAttack;
 	private PlayerMovement _playerMovement;
+
+	/// <summary>
+	/// Indicates whether the dependencies of the component are all available.
+	/// </summary>
 	private bool _isConfigured;
 
 	private void Awake()
@@ -86,7 +98,7 @@ public sealed class PlayerInputHandler : MonoBehaviour
 	{
 		if (_playerAttack != null && _shootAction.action.IsPressed())
 		{
-			_playerAttack.Fire();
+			_playerAttack.Attack();
 		}
 	}
 

@@ -2,8 +2,6 @@ using System;
 using TMPro;
 using UnityEngine;
 
-// TODO: Feedback -  How can the player see how many units are under the control of this spawnpoint?
-
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Health))]
 public sealed class SpawnPointLogic : MonoBehaviour
@@ -65,9 +63,6 @@ public sealed class SpawnPointLogic : MonoBehaviour
 		SpawnUnit();
 	}
 
-	/// <summary>
-	/// Notify observers about my destruction.
-	/// </summary>
 	private void OnDestroy()
 	{
 		Destroyed?.Invoke(this);
@@ -79,6 +74,7 @@ public sealed class SpawnPointLogic : MonoBehaviour
 	/// </summary>
 	private void SpawnUnit()
 	{
+		// TODO: Bug - Due to navmesh the unit no longer spawns above the spawnpoint.
 		Vector3 offset = new(0F, _collider.bounds.max.y + 0.05F, 0F);
 		GameObject enemy = Instantiate(_unitTemplate, transform.position + offset, transform.rotation);
 		
