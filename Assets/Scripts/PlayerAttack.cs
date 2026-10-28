@@ -41,6 +41,8 @@ public sealed class PlayerAttack : MonoBehaviour
 			return;
 		}
 
+		// TODO: Bug - Sometimes fires mutliple shots.
+
 		Instantiate(_projectileTemplate, _projectileSocket.position, _projectileSocket.rotation);
 		_fireTimer += _attackCooldown;
 	}

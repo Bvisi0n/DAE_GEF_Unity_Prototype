@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-// TODO: Feedback - How can the player know which unit belongs to wich spawnpoint?
-// TODO: Refactor - Split this logic up in seperate specialized scripts.
+// TODO: Feedback - How can the player know which unit belongs to which spawn point?
+// TODO: Refactor - Split this logic up in separate specialized scripts.
 
 [System.Serializable]
 public enum State { Idle, Chase, Attack }
@@ -17,7 +17,7 @@ public sealed class EnemyLogic : MonoBehaviour
 	[SerializeField, Min(0F), Tooltip("The range of the attack ability.")]
 	private float _attackRange = 1F;
 
-	[SerializeField, Min(0F), Tooltip("The range at wich this unit will start chasing it's target.")]
+	[SerializeField, Min(0F), Tooltip("The range at which this unit will start chasing it's target.")]
 	private float _spotRange = 10F;
 
 	[SerializeField, Min(0F), Tooltip("How far the unit will wander from it's spawn point when idle.")]

@@ -52,7 +52,7 @@ public sealed class Health : MonoBehaviour
 		Debug.Log($"Called the method ChangeHealth({amount}), _canTakeDamage is {_canHealthChange} and current health is now {_currentHealth}.", this);
 	}
 
-	/// <summary>Instruct the GameObject to self destruct.</summary>
+	/// <summary>Instruct the GameObject to self-destruct.</summary>
 	/// <remarks>Bypasses CanTakeDamage flag.</remarks>
 	public void Die()
 	{
