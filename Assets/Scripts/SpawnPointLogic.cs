@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 // TODO: Feedback -  How can the player see how many units are under the control of this spawnpoint?
@@ -14,6 +15,7 @@ public sealed class SpawnPointLogic : MonoBehaviour
 
 	[SerializeField] private GameObject _unitTemplate;
 
+	private TextMeshPro _textLabel;
 	private Collider _collider;
 	private Health _health;
 	private int _activeUnits;
@@ -31,6 +33,13 @@ public sealed class SpawnPointLogic : MonoBehaviour
 			enabled = false;
 		}
 
+		_textLabel = GetComponentInChildren<TextMeshPro>();
+
+		if (_textLabel == null)
+		{
+			Debug.LogWarning("Couldn't find TextMeshPro among children of this gameobject.", this);
+		}
+
 		_collider = GetComponent<Collider>();
 		_health = GetComponent<Health>();
 	}
@@ -38,6 +47,7 @@ public sealed class SpawnPointLogic : MonoBehaviour
 	private void Start()
 	{
 		_health.CanHealthChange = false;
+		UpdateTextLabel();
 	}
 
 	private void Update()
@@ -82,6 +92,7 @@ public sealed class SpawnPointLogic : MonoBehaviour
 		enemyLogic.SpawnPointPosition = transform.position;
 		_activeUnits++;
 		_health.CanHealthChange = false;
+		UpdateTextLabel();
 		_timestampOfLastSpawn = Time.time;
 	}
 
@@ -100,6 +111,17 @@ public sealed class SpawnPointLogic : MonoBehaviour
 			_health.CanHealthChange = true;
 		}
 
+		UpdateTextLabel();
 		_timestampOfLastSpawn = Time.time;
+	}
+
+	private void UpdateTextLabel()
+	{
+		if (_textLabel == null)
+		{
+			return;
+		}
+
+		_textLabel.text = $"{_activeUnits} / {_maxUnitCount}";
 	}
 }
