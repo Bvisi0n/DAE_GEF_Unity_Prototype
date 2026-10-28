@@ -6,8 +6,8 @@ public sealed class PlayerAttack : MonoBehaviour
 	[SerializeField] private Transform _projectileSocket;
 	[SerializeField, Min(0F)] private float _attackCooldown = 1.0F;
 
-	private bool _triggerPulled;
-	private float _fireTimer;
+	private bool _isAttacking;
+	private float _timeUntilNextAttack;
 
 	private void Awake()
 	{
@@ -24,14 +24,14 @@ public sealed class PlayerAttack : MonoBehaviour
 
 	private void Update()
 	{
-		_fireTimer -= Time.deltaTime;
+		_timeUntilNextAttack -= Time.deltaTime;
 
-		if (_fireTimer <= 0.0F && _triggerPulled)
+		if (_timeUntilNextAttack <= 0.0F && _isAttacking)
 		{
 			FireProjectile();
 		}
 
-		_triggerPulled = false;
+		_isAttacking = false;
 	}
 
 	private void FireProjectile()
@@ -44,11 +44,11 @@ public sealed class PlayerAttack : MonoBehaviour
 		// TODO: Bug - Sometimes fires mutliple shots.
 
 		Instantiate(_projectileTemplate, _projectileSocket.position, _projectileSocket.rotation);
-		_fireTimer += _attackCooldown;
+		_timeUntilNextAttack += _attackCooldown;
 	}
 
-	public void Fire()
+	public void Attack()
 	{
-		_triggerPulled = true;
+		_isAttacking = true;
 	}
 }
