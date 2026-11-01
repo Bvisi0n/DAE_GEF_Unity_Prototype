@@ -1,0 +1,127 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+// TODO: Refactor - Narrow down the scope of the _inputAsset.Enable() & .Disable() calls
+// Currently we are enabling and disabling the entire contents of the input asset which may not be what we want.
+// InputActionReference can't be toggled individually,
+// Look into InputAction & InputActionMap.
+
+namespace Assets.Scripts.Player
+{
+	[RequireComponent(typeof(AttackLogic))]
+	[RequireComponent(typeof(Movement))]
+	public sealed class InputHandler : MonoBehaviour
+	{
+		// https://docs.unity3d.com/Packages/com.unity.inputsystem@1.20/api/UnityEngine.InputSystem.InputActionAsset.html
+		[SerializeField] private InputActionAsset _inputAsset;
+
+		// https://docs.unity3d.com/Packages/com.unity.inputsystem@1.20/api/UnityEngine.InputSystem.InputActionReference.html
+		[SerializeField] private InputActionReference _movementAction;
+		[SerializeField] private InputActionReference _jumpAction;
+		[SerializeField] private InputActionReference _shootAction;
+
+		private AttackLogic _playerAttack;
+		private Movement _playerMovement;
+
+		/// <summary>
+		/// Indicates whether the dependencies of the component are all available.
+		/// </summary>
+		private bool _isConfigured;
+
+		private void Awake()
+		{
+			_playerAttack = GetComponent<AttackLogic>();
+			_playerMovement = GetComponent<Movement>();
+
+			_isConfigured
+				= _inputAsset != null
+				&& _movementAction != null
+				&& _movementAction.action != null
+				&& _jumpAction != null
+				&& _jumpAction.action != null
+				&& _shootAction != null
+				&& _shootAction.action != null;
+
+			if (!_isConfigured)
+			{
+				Debug.LogError("Incomplete input configuration.", this);
+			}
+
+			if (Camera.main == null)
+			{
+				Debug.LogWarning("No MainCamera was found. Aiming input will be skipped.", this);
+			}
+		}
+
+		private void OnEnable()
+		{
+			if (!_isConfigured)
+			{
+				return;
+			}
+
+			_jumpAction.action.performed += HandleJumpInput;
+			_inputAsset.Enable();
+		}
+
+		private void OnDisable()
+		{
+			if (!_isConfigured)
+			{
+				return;
+			}
+
+			_jumpAction.action.performed -= HandleJumpInput;
+			_inputAsset.Disable();
+		}
+
+		private void Update()
+		{
+			HandleAimingInput();
+			HandleShootInput();
+			HandleMovementInput();
+		}
+
+		private void HandleAimingInput()
+		{
+			if (Mouse.current == null || Camera.main == null)
+			{
+				return;
+			}
+
+			Vector3 mousePosition = Mouse.current.position.ReadValue();
+			mousePosition.z = Mathf.Abs(transform.position.z - Camera.main.transform.position.z);
+			Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+			worldMousePosition.z = 0F;
+			_playerMovement.DesiredLookAtPoint = worldMousePosition;
+		}
+
+		private void HandleShootInput()
+		{
+			if (_playerAttack != null && _shootAction.action.IsPressed())
+			{
+				_playerAttack.Attack();
+			}
+		}
+
+		private void HandleMovementInput()
+		{
+			if (_playerMovement == null || _movementAction == null)
+			{
+				return;
+			}
+
+			float movementInput = _movementAction.action.ReadValue<float>();
+			Vector3 movement = movementInput * Vector3.right;
+			_playerMovement.DesiredMovementDirection = movement;
+		}
+
+		private void HandleJumpInput(InputAction.CallbackContext context)
+		{
+			if (_playerMovement != null)
+			{
+				_playerMovement.Jump();
+			}
+		}
+	}
+}

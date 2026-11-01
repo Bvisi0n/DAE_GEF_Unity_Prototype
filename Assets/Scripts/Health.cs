@@ -1,61 +1,64 @@
 using System;
 using UnityEngine;
 
-public sealed class Health : MonoBehaviour
+namespace Assets.Scripts
 {
-	[SerializeField, Min(1)] int _maxHealth = 10;
-
-	private int _currentHealth;
-	private bool _canHealthChange = true;
-
-	public event Action<int> Damaged;
-
-	public int CurrentHealth
+	public sealed class Health : MonoBehaviour
 	{
-		get { return _currentHealth; }
-	}
+		[SerializeField, Min(1)] int _maxHealth = 10;
 
-	public bool CanHealthChange
-	{
-		get { return _canHealthChange; }
-		set { _canHealthChange = value; }
-	}
+		private int _currentHealth;
+		private bool _canHealthChange = true;
 
-	private void Start()
-	{
-		_currentHealth = _maxHealth;
-	}
+		public event Action<int> Damaged;
 
-	private void Update()
-	{
-		if (_currentHealth <= 0)
+		public int CurrentHealth
 		{
-			Destroy(gameObject);
+			get { return _currentHealth; }
 		}
-	}
 
-	/// <remarks>Pass negative values to decrease current health.</remarks>
-	public void ChangeHealth(int amount)
-	{
-		if (_canHealthChange)
+		public bool CanHealthChange
 		{
-			int previousHealth = _currentHealth;
-			_currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
-			int healthLost = previousHealth - _currentHealth;
+			get { return _canHealthChange; }
+			set { _canHealthChange = value; }
+		}
 
-			if (healthLost > 0)
+		private void Start()
+		{
+			_currentHealth = _maxHealth;
+		}
+
+		private void Update()
+		{
+			if (_currentHealth <= 0)
 			{
-				Damaged?.Invoke(healthLost);
+				Destroy(gameObject);
 			}
 		}
 
-		Debug.Log($"Called the method ChangeHealth({amount}), _canTakeDamage is {_canHealthChange} and current health is now {_currentHealth}.", this);
-	}
+		/// <remarks>Pass negative values to decrease current health.</remarks>
+		public void ChangeHealth(int amount)
+		{
+			if (_canHealthChange)
+			{
+				int previousHealth = _currentHealth;
+				_currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
+				int healthLost = previousHealth - _currentHealth;
 
-	/// <summary>Instruct the GameObject to self-destruct.</summary>
-	/// <remarks>Bypasses CanTakeDamage flag.</remarks>
-	public void Die()
-	{
-		Destroy(gameObject);
+				if (healthLost > 0)
+				{
+					Damaged?.Invoke(healthLost);
+				}
+			}
+
+			Debug.Log($"Called the method ChangeHealth({amount}), _canTakeDamage is {_canHealthChange} and current health is now {_currentHealth}.", this);
+		}
+
+		/// <summary>Instruct the GameObject to self-destruct.</summary>
+		/// <remarks>Bypasses CanTakeDamage flag.</remarks>
+		public void Die()
+		{
+			Destroy(gameObject);
+		}
 	}
 }
