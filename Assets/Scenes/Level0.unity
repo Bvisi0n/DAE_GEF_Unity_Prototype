@@ -952,6 +952,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1327586191}
+  - component: {fileID: 1327586192}
   m_Layer: 0
   m_Name: Tutorial
   m_TagString: Untagged
@@ -978,6 +979,20 @@ Transform:
   - {fileID: 1705867063}
   m_Father: {fileID: 1606649031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1327586192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327586190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5817ddcfe36cf144a344def0932dffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FloatingPrompt
+  _amplitude: 0.2
+  _frequency: 1
 --- !u!43 &1507131906
 Mesh:
   m_ObjectHideFlags: 0
@@ -2431,7 +2446,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 505542108138538356, guid: 47862747ccb0e804d973fdc337a0e163, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 505542108138538356, guid: 47862747ccb0e804d973fdc337a0e163, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2486,6 +2501,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1176495417547046655, guid: 8e6075eb9dc820040bb7d19063aac9f1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.000001
+      objectReference: {fileID: 0}
     - target: {fileID: 3339427716160423457, guid: 8e6075eb9dc820040bb7d19063aac9f1, type: 3}
       propertyPath: m_Name
       value: Camera
@@ -2529,6 +2548,10 @@ PrefabInstance:
     - target: {fileID: 3412529887382933781, guid: 8e6075eb9dc820040bb7d19063aac9f1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7280083002045375702, guid: 8e6075eb9dc820040bb7d19063aac9f1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.000001
       objectReference: {fileID: 0}
     - target: {fileID: 8396821511090531461, guid: 8e6075eb9dc820040bb7d19063aac9f1, type: 3}
       propertyPath: Target.TrackingTarget
