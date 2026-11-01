@@ -18,6 +18,7 @@ namespace Assets.Scripts.SpawnPoint
 		private TextMeshPro _textLabel;
 		private Collider _collider;
 		private Health _health;
+		private Visuals _visuals;
 		private int _activeUnits;
 
 		// TODO: Bug - Uses Time.time which does not account for pause or lag.
@@ -40,6 +41,13 @@ namespace Assets.Scripts.SpawnPoint
 				Debug.LogWarning("Couldn't find TextMeshPro among children of this gameobject.", this);
 			}
 
+			_visuals = GetComponentInChildren<Visuals>();
+
+			if (_visuals == null)
+			{
+				Debug.LogWarning("Couldn't find Visuals script among children of this gameobject.", this);
+			}
+
 			_collider = GetComponent<Collider>();
 			_health = GetComponent<Health>();
 		}
@@ -47,6 +55,7 @@ namespace Assets.Scripts.SpawnPoint
 		private void Start()
 		{
 			_health.CanHealthChange = false;
+			_visuals.SetVulnerable(false);
 			UpdateTextLabel();
 		}
 
@@ -90,6 +99,7 @@ namespace Assets.Scripts.SpawnPoint
 			enemyLogic.SpawnPointPosition = transform.position;
 			_activeUnits++;
 			_health.CanHealthChange = false;
+			_visuals.SetVulnerable(false);
 			UpdateTextLabel();
 			_timestampOfLastSpawn = Time.time;
 		}
@@ -107,6 +117,7 @@ namespace Assets.Scripts.SpawnPoint
 			if (_activeUnits <= 0)
 			{
 				_health.CanHealthChange = true;
+				_visuals.SetVulnerable(true);
 			}
 
 			UpdateTextLabel();

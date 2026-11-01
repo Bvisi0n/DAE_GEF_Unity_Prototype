@@ -25,16 +25,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2730408416405738325}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.51}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1055088541874728727}
+  m_Father: {fileID: 2518925017606064562}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.5}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1659837104366192578
@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 1055088541874728727}
   - component: {fileID: 2698540172599944937}
   - component: {fileID: 7102965557229861208}
+  - component: {fileID: 8480479851676598728}
   m_Layer: 8
   m_Name: Visual
   m_TagString: Untagged
@@ -211,8 +212,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1799812479530067797}
+  m_Children: []
   m_Father: {fileID: 2518925017606064562}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2698540172599944937
@@ -272,6 +272,21 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8480479851676598728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5131401851915057298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91cec7104cc57184d8d551c7d721c812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.SpawnPoint.Visuals
+  _Visual: {fileID: 5131401851915057298}
+  _defaultMaterial: {fileID: 2100000, guid: 4edfe29c79175184ea497116361445d8, type: 2}
+  _VulnerableMaterial: {fileID: 2100000, guid: bb51e2084ed828c41b8f034fef4c60ec, type: 2}
 --- !u!1 &7198197111471579963
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,6 +321,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1055088541874728727}
+  - {fileID: 1799812479530067797}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6953499457958065573
@@ -341,8 +357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2357e3c52c9fccd44a6a0d6f89ed23d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _spawnInterval: 5
-  _maxUnitCount: 3
+  _spawnInterval: 3
+  _maxUnitCount: 1
   _unitTemplate: {fileID: 3151823875788373056, guid: dbba28a656a4f854e80cb3fa353f7e0b, type: 3}
 --- !u!114 &7482060689149028140
 MonoBehaviour:
