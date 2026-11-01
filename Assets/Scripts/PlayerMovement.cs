@@ -9,10 +9,10 @@ using UnityEngine;
 public sealed class PlayerMovement : MonoBehaviour
 {
 	private const float k_GroundCheckDistance = 0.2F;
-	private const string k_GroundLayer = "Ground";
 
 	[SerializeField] private GameObject _shoulderSocket;
 	[SerializeField] private float _movementSpeed = 7F;
+	[SerializeField] private LayerMask _jumpableLayers;
 	[SerializeField] private float _jumpLaunchSpeed = 11F;
 	[SerializeField] private float _ascentGravityMultiplier = 2F;
 	[SerializeField] private float _fallGravityMultiplier = 2F;
@@ -26,7 +26,6 @@ public sealed class PlayerMovement : MonoBehaviour
 	private Vector3 _desiredMovementDirection;
 	
 	private bool _isGrounded;
-	private int _groundLayerMask;
 	private bool _jumpPhaseActive;
 	private float _jumpStartHeight;
 
@@ -46,13 +45,6 @@ public sealed class PlayerMovement : MonoBehaviour
 		if (_shoulderSocket == null)
 		{
 			Debug.LogError("Shoulder Socket is not assigned.", this);
-		}
-
-		_groundLayerMask = LayerMask.GetMask(k_GroundLayer);
-
-		if (_groundLayerMask == 0)
-		{
-			Debug.LogError($"Layer '{k_GroundLayer}' does not exist or is not configured.", this);
 		}
 
 		_collider = GetComponent<Collider>();
@@ -121,8 +113,7 @@ public sealed class PlayerMovement : MonoBehaviour
 		float epsilon = 0.05F;
 		Bounds bounds = _collider.bounds;
 		Vector3 origin = new(bounds.center.x, bounds.min.y + epsilon, bounds.center.z);
-		_isGrounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, _groundLayerMask);
-		// TODO: Bug - Grounded only if actually standing on an object from the "Ground" layer.
+		_isGrounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, _jumpableLayers);
 	}
 
 	private void HandleLookAt()

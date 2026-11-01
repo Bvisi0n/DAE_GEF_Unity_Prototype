@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8115586169222611830}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ProjectileSocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2548122551497815478}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShoulderSocket
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 1649331459926404352}
   - component: {fileID: 3586336127928322507}
   - component: {fileID: 930320336299472858}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -195,6 +195,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   _shoulderSocket: {fileID: 2233876984724782005}
   _movementSpeed: 7
+  _jumpableLayers:
+    serializedVersion: 2
+    m_Bits: 896
   _jumpLaunchSpeed: 11
   _ascentGravityMultiplier: 2
   _fallGravityMultiplier: 2
@@ -253,7 +256,7 @@ GameObject:
   - component: {fileID: 7320596984357931556}
   - component: {fileID: 8747762214119587451}
   - component: {fileID: 144810018564616191}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +347,7 @@ GameObject:
   - component: {fileID: 2939364622225044966}
   - component: {fileID: 711642217811585037}
   - component: {fileID: 7072742287073089988}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}

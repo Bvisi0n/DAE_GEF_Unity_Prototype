@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1799812479530067797}
   - component: {fileID: 1659837104366192578}
   - component: {fileID: 1715500474405481972}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TextLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 1055088541874728727}
   - component: {fileID: 2698540172599944937}
   - component: {fileID: 7102965557229861208}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 8876108687479984028}
   - component: {fileID: 7482060689149028140}
   - component: {fileID: 8399930746952960826}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpawnPoint
   m_TagString: Enemy
   m_Icon: {fileID: 0}
