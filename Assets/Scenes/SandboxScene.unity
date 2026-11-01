@@ -957,6 +957,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObjectiveManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7273496953469576068, guid: 394c49a091a244348954b682e59662ec, type: 3}
+      propertyPath: _nextSceneOnWin
+      value: SandboxScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7273496953469576068, guid: 394c49a091a244348954b682e59662ec, type: 3}
+      propertyPath: _nextSceneOnLose
+      value: SandboxScene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

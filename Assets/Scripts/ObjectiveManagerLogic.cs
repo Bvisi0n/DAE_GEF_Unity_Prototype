@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public sealed class ObjectiveManagerLogic : MonoBehaviour
 {
+	[SerializeField] private string _nextSceneOnWin;
+	[SerializeField] private string _nextSceneOnLose;
+
 	private int _remainingSpawnPoints;
 
 	/// <remarks>
@@ -69,7 +72,7 @@ public sealed class ObjectiveManagerLogic : MonoBehaviour
 		}
 
 		_isEnding = true;
-		SceneManager.LoadScene(0);
+		SceneManager.LoadScene(_nextSceneOnWin);
 	}
 
 	private void GameOver()
@@ -82,6 +85,6 @@ public sealed class ObjectiveManagerLogic : MonoBehaviour
 		}
 
 		_isEnding = true;
-		SceneManager.LoadScene(0);
+		SceneManager.LoadScene(_nextSceneOnLose);
 	}
 }
