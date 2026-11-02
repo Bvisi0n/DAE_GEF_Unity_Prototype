@@ -48,6 +48,11 @@ namespace Assets.Scripts.SpawnPoint
 		{
 			foreach (var renderer in _renderers)
 			{
+				if (renderer == null)
+				{
+					return;
+				}
+
 				if (isVulnerable)
 				{
 					renderer.material = _VulnerableMaterial;
