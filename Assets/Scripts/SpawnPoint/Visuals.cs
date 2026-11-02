@@ -1,11 +1,9 @@
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 namespace Assets.Scripts.SpawnPoint
 {
 	public sealed class Visuals : MonoBehaviour
 	{
-		[SerializeField] private GameObject _Visual;
 		[SerializeField] private Material _defaultMaterial;
 		[SerializeField] private Material _VulnerableMaterial;
 
@@ -13,13 +11,6 @@ namespace Assets.Scripts.SpawnPoint
 
 		private void Awake()
 		{
-			if (_Visual == null)
-			{
-				Debug.LogError("No Visual assigned, script disabled.", this);
-				enabled = false;
-				return;
-			}
-
 			if (_defaultMaterial == null)
 			{
 				Debug.LogError("No Default Material assigned, script disabled.", this);
