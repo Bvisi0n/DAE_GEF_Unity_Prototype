@@ -34,14 +34,14 @@ namespace Assets.Scripts
 		private float _timestampOfLastDestinationChange;
 		private float _attackTimer;
 
-		public event Action<Enemy> Died;
-
 		public Vector3 SpawnPointPosition
 		{
 			// TODO: Refactor - SpawnPointPosition isn't properly encapsulated.
 			get { return _spawnPointPosition; }
 			set { _spawnPointPosition = value; }
 		}
+
+		public event Action<Enemy> Destroyed;
 
 		private void Awake()
 		{
@@ -79,8 +79,7 @@ namespace Assets.Scripts
 
 		private void OnDestroy()
 		{
-			Debug.Log("OnDestroy() is called.", this);
-			Died?.Invoke(this);
+			Destroyed?.Invoke(this);
 		}
 
 		private void HandleIdleState()

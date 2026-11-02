@@ -85,9 +85,7 @@ namespace Assets.Scripts.SpawnPoint
 		/// </summary>
 		private void SpawnUnit()
 		{
-			// TODO: Bug - Due to navmesh the unit no longer spawns above the spawnpoint.
-			Vector3 offset = new(0F, _collider.bounds.max.y + 0.05F, 0F);
-			GameObject enemy = Instantiate(_unitTemplate, transform.position + offset, transform.rotation);
+			GameObject enemy = Instantiate(_unitTemplate, transform.position, transform.rotation);
 
 			if (!enemy.TryGetComponent<Enemy>(out var enemyLogic))
 			{
@@ -95,7 +93,7 @@ namespace Assets.Scripts.SpawnPoint
 				return;
 			}
 
-			enemyLogic.Died += OnEnemyDied;
+			enemyLogic.Destroyed += OnEnemyDied;
 			enemyLogic.SpawnPointPosition = transform.position;
 			_activeUnits++;
 			_health.CanHealthChange = false;
@@ -111,7 +109,7 @@ namespace Assets.Scripts.SpawnPoint
 		/// </summary>
 		private void OnEnemyDied(Enemy enemy)
 		{
-			enemy.Died -= OnEnemyDied;
+			enemy.Destroyed -= OnEnemyDied;
 			_activeUnits--;
 
 			if (_activeUnits <= 0)

@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 505542108138538356}
   - component: {fileID: 1498728621373605102}
   - component: {fileID: 3770348235999307365}
-  - component: {fileID: 7355416635390427245}
+  - component: {fileID: 365525734288482371}
   - component: {fileID: 3188259616576947094}
   - component: {fileID: 5954144370982604179}
   - component: {fileID: 1649331459926404352}
@@ -153,7 +153,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &7355416635390427245
+--- !u!114 &365525734288482371
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,9 +162,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3168892227503986549}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc4ca9a77c4e3b84ab633dd815421e30, type: 3}
+  m_Script: {fileID: 11500000, guid: 61c94bb0d441b1d439639efe39daac36, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerLogic
+  m_EditorClassIdentifier: Assembly-CSharp::Logic
 --- !u!114 &3188259616576947094
 MonoBehaviour:
   m_ObjectHideFlags: 0

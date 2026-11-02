@@ -31,11 +31,11 @@ namespace Assets.Scripts
 				item.Destroyed += OnSpawnPointDestroyed;
 			}
 
-			DestroyedEvent player = FindAnyObjectByType<DestroyedEvent>();
+			Player.Logic player = FindAnyObjectByType<Player.Logic>();
 
 			if (player == null)
 			{
-				Debug.LogWarning("PlayerLogic script could not be found in this scene.", this);
+				Debug.LogWarning("Player.Logic script could not be found in this scene.", this);
 			}
 			else
 			{
@@ -56,7 +56,7 @@ namespace Assets.Scripts
 			}
 		}
 
-		private void OnPlayerDestroyed(DestroyedEvent player)
+		private void OnPlayerDestroyed(Player.Logic player)
 		{
 			Debug.Log("The player died.", this);
 			player.Destroyed -= OnPlayerDestroyed;
