@@ -87,7 +87,7 @@ namespace Assets.Scripts.SpawnPoint
 		{
 			GameObject enemy = Instantiate(_unitTemplate, transform.position, transform.rotation);
 
-			if (!enemy.TryGetComponent<Enemy>(out var enemyLogic))
+			if (!enemy.TryGetComponent<Enemy.Enemy>(out var enemyLogic))
 			{
 				Debug.LogError("EnemyLogic script not found on spawned GameObject.", this);
 				return;
@@ -107,7 +107,7 @@ namespace Assets.Scripts.SpawnPoint
 		/// reset the spawn cooldown to prevent an instant respawn,
 		/// update the count of units under my control and set my vulnerability accordingly.
 		/// </summary>
-		private void OnEnemyDied(Enemy enemy)
+		private void OnEnemyDied(Enemy.Enemy enemy)
 		{
 			enemy.Destroyed -= OnEnemyDied;
 			_activeUnits--;

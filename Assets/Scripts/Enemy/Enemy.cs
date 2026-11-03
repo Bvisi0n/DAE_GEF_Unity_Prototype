@@ -5,7 +5,7 @@ using UnityEngine.AI;
 // TODO: Feedback - How can the player know which unit belongs to which spawn point?
 // TODO: Refactor - Split this logic up in separate specialized scripts.
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Enemy
 {
 	[System.Serializable]
 	public enum State { Idle, Chase, Attack }
@@ -13,6 +13,8 @@ namespace Assets.Scripts
 	[RequireComponent(typeof(NavMeshAgent))]
 	public sealed class Enemy : MonoBehaviour
 	{
+		[SerializeField] private GameObject _attackIndicator;
+		[SerializeField] private GameObject _chaseIndicator;
 		[SerializeField, Min(0F)] private int _attackDamage = 1;
 		[SerializeField, Min(0F)] private float _attackCooldown = 1F;
 
@@ -53,12 +55,22 @@ namespace Assets.Scripts
 				Debug.LogWarning($"No GameObject with tag '{targetTag}' found. No target set.");
 			}
 
+			if (_attackIndicator == null)
+			{
+				Debug.LogWarning("Attack Indicator not assigned.", this);
+			}
+
+			if (_chaseIndicator == null)
+			{
+				Debug.LogWarning("Chase Indicator not assigned.", this);
+			}
+
 			_navMeshAgent = GetComponent<NavMeshAgent>();
 		}
 
 		private void Start()
 		{
-			_currentState = State.Idle;
+			SetState(State.Idle);
 		}
 
 		private void Update()
@@ -86,7 +98,7 @@ namespace Assets.Scripts
 		{
 			if (IsPlayerInRange(_spotRange))
 			{
-				_currentState = State.Chase;
+				SetState(State.Chase);
 				Debug.Log($"{name} changed to chase state.", this);
 			}
 			else
@@ -99,19 +111,19 @@ namespace Assets.Scripts
 		{
 			if (_attackTarget == null)
 			{
-				_currentState = State.Idle;
+				SetState(State.Idle);
 				Debug.Log($"{name} lost its target (null), changed to idle state.", this);
 				return;
 			}
 
 			if (IsPlayerInRange(_attackRange))
 			{
-				_currentState = State.Attack;
+				SetState(State.Attack);
 				Debug.Log($"{name} changed to attack state.", this);
 			}
 			else if (!IsPlayerInRange(_spotRange))
 			{
-				_currentState = State.Idle;
+				SetState(State.Idle);
 				Debug.Log($"{name} lost its target (out of range), changed to idle state.", this);
 			}
 			else
@@ -124,7 +136,7 @@ namespace Assets.Scripts
 		{
 			if (_attackTarget == null)
 			{
-				_currentState = State.Idle;
+				SetState(State.Idle);
 				Debug.Log($"{name} lost its target, changed to idle state.", this);
 				return;
 			}
@@ -140,8 +152,28 @@ namespace Assets.Scripts
 			}
 			else
 			{
-				_currentState = State.Chase;
+				SetState(State.Chase);
 				Debug.Log($"{name} changed to Chase state.", this);
+			}
+		}
+
+		private void SetState(State newState)
+		{
+			if (_currentState == newState)
+			{
+				return;
+			}
+
+			_currentState = newState;
+
+			if (_attackIndicator != null)
+			{
+				_attackIndicator.SetActive(newState == State.Attack);
+			}
+
+			if (_chaseIndicator != null)
+			{
+				_chaseIndicator.SetActive(newState == State.Chase);
 			}
 		}
 
