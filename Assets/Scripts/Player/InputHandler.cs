@@ -1,21 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// TODO: Refactor - Narrow down the scope of the _inputAsset.Enable() & .Disable() calls
-// Currently we are enabling and disabling the entire contents of the input asset which may not be what we want.
-// InputActionReference can't be toggled individually,
-// Look into InputAction & InputActionMap.
-
 namespace Assets.Scripts.Player
 {
 	[RequireComponent(typeof(AttackLogic))]
 	[RequireComponent(typeof(Movement))]
 	public sealed class InputHandler : MonoBehaviour
 	{
-		// https://docs.unity3d.com/Packages/com.unity.inputsystem@1.20/api/UnityEngine.InputSystem.InputActionAsset.html
-		[SerializeField] private InputActionAsset _inputAsset;
-
-		// https://docs.unity3d.com/Packages/com.unity.inputsystem@1.20/api/UnityEngine.InputSystem.InputActionReference.html
 		[SerializeField] private InputActionReference _movementAction;
 		[SerializeField] private InputActionReference _jumpAction;
 		[SerializeField] private InputActionReference _shootAction;
@@ -30,12 +21,9 @@ namespace Assets.Scripts.Player
 
 		private void Awake()
 		{
-			_playerAttack = GetComponent<AttackLogic>();
-			_playerMovement = GetComponent<Movement>();
-
+			// TODO: Refactor - Refine input configuration safeguards with many LogError's to easily pinpoint the issue incase it breaks.
 			_isConfigured
-				= _inputAsset != null
-				&& _movementAction != null
+				= _movementAction != null
 				&& _movementAction.action != null
 				&& _jumpAction != null
 				&& _jumpAction.action != null
@@ -44,13 +32,18 @@ namespace Assets.Scripts.Player
 
 			if (!_isConfigured)
 			{
-				Debug.LogError("Incomplete input configuration.", this);
+				Debug.LogError("Incomplete input configuration, script disabled.", this);
+				enabled = false;
+				return;
 			}
 
 			if (Camera.main == null)
 			{
 				Debug.LogWarning("No MainCamera was found. Aiming input will be skipped.", this);
 			}
+
+			_playerAttack = GetComponent<AttackLogic>();
+			_playerMovement = GetComponent<Movement>();
 		}
 
 		private void OnEnable()
@@ -61,7 +54,9 @@ namespace Assets.Scripts.Player
 			}
 
 			_jumpAction.action.performed += HandleJumpInput;
-			_inputAsset.Enable();
+			_movementAction.action.Enable();
+			_jumpAction.action.Enable();
+			_shootAction.action.Enable();
 		}
 
 		private void OnDisable()
@@ -72,7 +67,9 @@ namespace Assets.Scripts.Player
 			}
 
 			_jumpAction.action.performed -= HandleJumpInput;
-			_inputAsset.Disable();
+			_movementAction.action.Disable();
+			_jumpAction.action.Disable();
+			_shootAction.action.Disable();
 		}
 
 		private void Update()
