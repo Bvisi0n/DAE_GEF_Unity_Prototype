@@ -10,18 +10,13 @@ namespace Assets.Scripts
 		private int _currentHealth;
 		private bool _canHealthChange = true;
 
-
-		public int CurrentHealth
-		{
-			get { return _currentHealth; }
-		}
-
 		public bool CanHealthChange
 		{
 			get { return _canHealthChange; }
 			set { _canHealthChange = value; }
 		}
 
+		public int CurrentHealth => _currentHealth;
 		public event Action Damaged;
 		private void Start()
 		{

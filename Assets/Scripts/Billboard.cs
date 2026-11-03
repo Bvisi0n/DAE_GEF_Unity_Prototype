@@ -1,24 +1,27 @@
 using UnityEngine;
 
-public sealed class Billboard : MonoBehaviour
+namespace Assets.Scripts
 {
-	private void OnEnable()
+	public sealed class Billboard : MonoBehaviour
 	{
-		if (Camera.main == null)
+		private void OnEnable()
 		{
-			Debug.LogError("Couldn't find a Main Camera, script disabled.", this);
-			enabled = false;
-			return;
-		}
-	}
-
-	void LateUpdate()
-	{
-		if (Camera.main == null)
-		{
-			return;
+			if (Camera.main == null)
+			{
+				Debug.LogError("Couldn't find a Main Camera, script disabled.", this);
+				enabled = false;
+				return;
+			}
 		}
 
-		transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+		void LateUpdate()
+		{
+			if (Camera.main == null)
+			{
+				return;
+			}
+
+			transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+		}
 	}
 }

@@ -52,7 +52,7 @@ namespace Assets.Scripts.Enemy
 
 			if (_attackTarget == null)
 			{
-				Debug.LogWarning($"No GameObject with tag '{targetTag}' found. No target set.");
+				Debug.LogWarning($"No GameObject with tag '{targetTag}' found. No target set.", this);
 			}
 
 			if (_attackIndicator == null)
