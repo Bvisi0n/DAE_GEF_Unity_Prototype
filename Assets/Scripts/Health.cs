@@ -17,10 +17,15 @@ namespace Assets.Scripts
 		}
 
 		public int CurrentHealth => _currentHealth;
-		public event Action Damaged;
+		public int MaxHealth => _maxHealth;
+
+		public event Action Damaged; // Used by player feedback that's only interested in damage taken.
+		public event Action<int> HealthChanged; // Used by UI
+
 		private void Start()
 		{
 			_currentHealth = _maxHealth;
+			HealthChanged?.Invoke(_currentHealth);
 		}
 
 		private void Update()
@@ -38,6 +43,7 @@ namespace Assets.Scripts
 			{
 				int previousHealth = _currentHealth;
 				_currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
+				HealthChanged?.Invoke(_currentHealth);
 				int healthLost = previousHealth - _currentHealth;
 
 				if (healthLost > 0)
