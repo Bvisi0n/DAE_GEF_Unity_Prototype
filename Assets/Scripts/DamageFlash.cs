@@ -11,18 +11,11 @@ namespace Assets.Scripts
 		[SerializeField] private Color _flashColor = Color.white;
 		[SerializeField, Min(0F)] private float _flashDuration = 0.1F;
 
-		private Health _health;
-
-		// https://docs.unity.com/en-us/engine/6000.3/script-reference/unityengine/renderer
-		// Renderer is a component of a gameobject.
+		private Coroutine _flashRoutine;
 		private Renderer[] _renderers;
-
-		// https://docs.unity.com/en-us/engine/6000.3/script-reference/unityengine/materialpropertyblock
 		private MaterialPropertyBlock[] _originalBlocks;
 		private MaterialPropertyBlock _workingBlock;
-
-		// https://docs.unity.com/en-us/engine/6000.3/script-reference/unityengine/coroutine
-		private Coroutine _flashRoutine;
+		private Health _health;
 
 		private void Awake()
 		{
@@ -48,12 +41,12 @@ namespace Assets.Scripts
 
 		private void OnEnable()
 		{
-			_health.Damaged += HandleDamaged;
+			_health.Damaged += OnDamaged;
 		}
 
 		private void OnDisable()
 		{
-			_health.Damaged -= HandleDamaged;
+			_health.Damaged -= OnDamaged;
 
 			if (_flashRoutine != null)
 			{
@@ -64,8 +57,9 @@ namespace Assets.Scripts
 			RestoreOriginalBlocks();
 		}
 
-		private void HandleDamaged(int damageTaken)
+		private void OnDamaged(int damageTaken)
 		{
+			// If already running, stop, reset & start fresh.
 			if (_flashRoutine != null)
 			{
 				StopCoroutine(_flashRoutine);
