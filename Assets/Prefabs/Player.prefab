@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 5954144370982604179}
   - component: {fileID: 1649331459926404352}
   - component: {fileID: 3586336127928322507}
+  - component: {fileID: 933339158732692832}
   - component: {fileID: 930320336299472858}
   m_Layer: 10
   m_Name: Player
@@ -231,6 +232,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _maxHealth: 10
+--- !u!114 &933339158732692832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168892227503986549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103ee4f6fa028894a9bd9398295a419c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.DamageVignette
+  _volume: {fileID: 0}
+  _color: {r: 1, g: 0, b: 0, a: 1}
+  _peakIntensity: 0.333
+  _fadeOutDuration: 0.6
 --- !u!114 &930320336299472858
 MonoBehaviour:
   m_ObjectHideFlags: 0
