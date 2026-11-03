@@ -9,7 +9,7 @@ namespace Assets.Scripts.Player
 		[SerializeField, Min(0F)] private float _attackCooldown = 1.0F;
 
 		private bool _isAttacking;
-		private float _timeUntilNextAttack;
+		private float _attackTimer;
 
 		private void Awake()
 		{
@@ -26,9 +26,9 @@ namespace Assets.Scripts.Player
 
 		private void Update()
 		{
-			_timeUntilNextAttack -= Time.deltaTime;
+			_attackTimer -= Time.deltaTime;
 
-			if (_timeUntilNextAttack <= 0.0F && _isAttacking)
+			if (_attackTimer <= 0.0F && _isAttacking)
 			{
 				FireProjectile();
 			}
@@ -43,10 +43,8 @@ namespace Assets.Scripts.Player
 				return;
 			}
 
-			// TODO: Bug - Sometimes fires mutliple shots.
-
+			_attackTimer = _attackCooldown;
 			Instantiate(_projectileTemplate, _projectileSocket.position, _projectileSocket.rotation);
-			_timeUntilNextAttack += _attackCooldown;
 		}
 
 		public void Attack()

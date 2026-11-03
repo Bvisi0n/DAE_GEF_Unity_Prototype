@@ -229,7 +229,7 @@ namespace Assets.Scripts.Enemy
 				return;
 			}
 
-			_attackTimer += _attackCooldown;
+			_attackTimer = _attackCooldown;
 
 			if (!_attackTarget.TryGetComponent<Health>(out var targetHealth))
 			{
