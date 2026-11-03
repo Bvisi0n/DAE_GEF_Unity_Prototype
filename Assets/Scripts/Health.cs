@@ -10,7 +10,6 @@ namespace Assets.Scripts
 		private int _currentHealth;
 		private bool _canHealthChange = true;
 
-		public event Action<int> Damaged;
 
 		public int CurrentHealth
 		{
@@ -23,6 +22,7 @@ namespace Assets.Scripts
 			set { _canHealthChange = value; }
 		}
 
+		public event Action Damaged;
 		private void Start()
 		{
 			_currentHealth = _maxHealth;
@@ -47,7 +47,7 @@ namespace Assets.Scripts
 
 				if (healthLost > 0)
 				{
-					Damaged?.Invoke(healthLost);
+					Damaged?.Invoke();
 				}
 			}
 

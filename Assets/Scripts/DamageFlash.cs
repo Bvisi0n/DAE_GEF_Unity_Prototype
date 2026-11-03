@@ -57,7 +57,7 @@ namespace Assets.Scripts
 			RestoreOriginalBlocks();
 		}
 
-		private void OnDamaged(int damageTaken)
+		private void OnDamaged()
 		{
 			// If already running, stop, reset & start fresh.
 			if (_flashRoutine != null)

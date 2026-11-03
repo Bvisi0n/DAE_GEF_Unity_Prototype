@@ -62,7 +62,7 @@ namespace Assets.Scripts.Player
 			_health.Damaged -= OnDamaged;
 		}
 
-		private void OnDamaged(int damageTaken)
+		private void OnDamaged()
 		{
 			// Start the effect.
 			_vignette.color.value = _color;
