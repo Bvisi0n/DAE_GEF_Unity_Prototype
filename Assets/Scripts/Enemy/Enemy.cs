@@ -38,7 +38,6 @@ namespace Assets.Scripts.Enemy
 
 		public Vector3 SpawnPointPosition
 		{
-			// TODO: Refactor - SpawnPointPosition isn't properly encapsulated.
 			get { return _spawnPointPosition; }
 			set { _spawnPointPosition = value; }
 		}
