@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2315917104850716455}
   - component: {fileID: 7273496953469576068}
   m_Layer: 0
-  m_Name: ObjectiveManager
+  m_Name: ObjectiveTracker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,6 +41,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5963807769211750220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f933fb8bb4c8354290ee3d6bdd85bc9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f9c6d75ec7a2f742b832f521e9332d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'

@@ -2603,7 +2603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5963807769211750220, guid: 394c49a091a244348954b682e59662ec, type: 3}
       propertyPath: m_Name
-      value: ObjectiveManager
+      value: ObjectiveTracker
       objectReference: {fileID: 0}
     - target: {fileID: 7273496953469576068, guid: 394c49a091a244348954b682e59662ec, type: 3}
       propertyPath: _nextSceneOnWin

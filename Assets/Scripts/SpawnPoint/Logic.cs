@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace Assets.Scripts.SpawnPoint
 {
-	[RequireComponent(typeof(Collider))]
 	[RequireComponent(typeof(Health))]
-	public sealed class Logic : MonoBehaviour
+	public sealed class Logic : MonoBehaviour, IObjective
 	{
 		[SerializeField, Min(0F)] private float _spawnInterval = 5F;
 
@@ -16,7 +15,7 @@ namespace Assets.Scripts.SpawnPoint
 		[SerializeField] private GameObject _unitTemplate;
 
 		private TextMeshPro _textLabel;
-		private Collider _collider;
+		private ObjectiveTracker _objectiveTracker;
 		private Health _health;
 		private Visuals _visuals;
 		private int _activeUnits;
@@ -24,14 +23,15 @@ namespace Assets.Scripts.SpawnPoint
 		// TODO: Bug - Uses Time.time which does not account for pause or lag.
 		private float _timestampOfLastSpawn;
 
-		public event Action<Logic> Destroyed;
+		public ObjectiveType Type => ObjectiveType.SpawnPoint;
 
 		private void Awake()
 		{
 			if (_unitTemplate == null)
 			{
-				Debug.LogError("Unit Template is not assigned, object is disabled.", this);
+				Debug.LogError("Unit Template is not assigned, script disabled.", this);
 				enabled = false;
+				return;
 			}
 
 			_textLabel = GetComponentInChildren<TextMeshPro>();
@@ -41,6 +41,13 @@ namespace Assets.Scripts.SpawnPoint
 				Debug.LogWarning("Couldn't find TextMeshPro among children of this gameobject.", this);
 			}
 
+			_objectiveTracker = FindAnyObjectByType<ObjectiveTracker>();
+
+			if (_objectiveTracker == null)
+			{
+				Debug.LogWarning("Couldn't find ObjectiveManager in this scene.", this);
+			}
+
 			_visuals = GetComponentInChildren<Visuals>();
 
 			if (_visuals == null)
@@ -48,8 +55,15 @@ namespace Assets.Scripts.SpawnPoint
 				Debug.LogWarning("Couldn't find Visuals script among children of this gameobject.", this);
 			}
 
-			_collider = GetComponent<Collider>();
 			_health = GetComponent<Health>();
+		}
+
+		private void OnEnable()
+		{
+			if (_objectiveTracker != null)
+			{
+				_objectiveTracker.Register(this);
+			}
 		}
 
 		private void Start()
@@ -74,9 +88,12 @@ namespace Assets.Scripts.SpawnPoint
 			SpawnUnit();
 		}
 
-		private void OnDestroy()
+		private void OnDisable()
 		{
-			Destroyed?.Invoke(this);
+			if (_objectiveTracker != null)
+			{
+				_objectiveTracker.Unregister(this);
+			}
 		}
 
 		/// <summary>
@@ -85,16 +102,16 @@ namespace Assets.Scripts.SpawnPoint
 		/// </summary>
 		private void SpawnUnit()
 		{
-			GameObject enemy = Instantiate(_unitTemplate, transform.position, transform.rotation);
+			GameObject instance = Instantiate(_unitTemplate, transform.position, transform.rotation);
 
-			if (!enemy.TryGetComponent<Enemy.Enemy>(out var enemyLogic))
+			if (!instance.TryGetComponent<Enemy.Enemy>(out var enemy))
 			{
 				Debug.LogError("EnemyLogic script not found on spawned GameObject.", this);
 				return;
 			}
 
-			enemyLogic.Destroyed += OnEnemyDied;
-			enemyLogic.SpawnPointPosition = transform.position;
+			enemy.Destroyed += OnEnemyDied;
+			enemy.SpawnPointPosition = transform.position;
 			_activeUnits++;
 			_health.CanHealthChange = false;
 			_visuals.SetVulnerable(false);

@@ -11,7 +11,7 @@ namespace Assets.Scripts.Enemy
 	public enum State { Idle, Chase, Attack }
 
 	[RequireComponent(typeof(NavMeshAgent))]
-	public sealed class Enemy : MonoBehaviour
+	public sealed class Enemy : MonoBehaviour, IObjective
 	{
 		[SerializeField] private GameObject _attackIndicator;
 		[SerializeField] private GameObject _chaseIndicator;
@@ -29,8 +29,8 @@ namespace Assets.Scripts.Enemy
 
 		private GameObject _attackTarget;
 		private NavMeshAgent _navMeshAgent;
-		private Vector3 _spawnPointPosition;
 		private State _currentState;
+		private Vector3 _spawnPointPosition;
 
 		// TODO: Bug - Uses Time.time which does not account for pause or lag.
 		private float _timestampOfLastDestinationChange;
@@ -41,6 +41,8 @@ namespace Assets.Scripts.Enemy
 			get { return _spawnPointPosition; }
 			set { _spawnPointPosition = value; }
 		}
+
+		public ObjectiveType Type => ObjectiveType.Enemy;
 
 		public event Action<Enemy> Destroyed;
 
