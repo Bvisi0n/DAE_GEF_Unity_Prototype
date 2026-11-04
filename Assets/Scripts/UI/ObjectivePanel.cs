@@ -50,6 +50,7 @@ namespace Assets.Scripts.UI
 
 			if (_objectiveList == null || _objectiveEntryPrefab == null || _objectiveTracker == null)
 			{
+				enabled = false;
 				return;
 			}
 
@@ -61,14 +62,18 @@ namespace Assets.Scripts.UI
 
 				if (!instance.TryGetComponent<ObjectiveEntry>(out _spawnPointObjective))
 				{
-					Debug.LogError("ObjectiveEntry script not found on spawned GameObject.", this);
-					return;
+					Debug.LogWarning("ObjectiveEntry script not found on spawned GameObject.", this);
 				}
-
-				_spawnPointObjective.Initialize("Destroy all spawn points", spawnPointCount);
+				else
+				{
+					_spawnPointObjective.Initialize("Destroy all spawn points", spawnPointCount);
+				}
 			}
 
-			// For the scope of this prototype enemy units shouldn't be an objective.
+			if (_spawnPointObjective == null)
+			{	// If no objectives, add checks when adding more.
+				enabled = false;
+			}
 		}
 
 		private void OnDisable()
