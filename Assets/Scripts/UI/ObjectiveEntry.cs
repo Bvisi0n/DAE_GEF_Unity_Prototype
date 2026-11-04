@@ -64,7 +64,7 @@ namespace Assets.Scripts.UI
 			// Icon: A completed checkmark
 			// Instruction: Strikethrough
 			// Status: Completed and green
-			// Tail: Empty?
+			// Tail: Empty for now?
 
 			_statusText.text = $"{remainingObjectives} remaining";
 			_tailText.text = $"{remainingObjectives}";
