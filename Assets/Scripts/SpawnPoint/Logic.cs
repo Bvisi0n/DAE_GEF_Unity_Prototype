@@ -110,6 +110,7 @@ namespace Assets.Scripts.SpawnPoint
 				return;
 			}
 
+			// TODO: Bug - Cache all subscriptions and unsub from them upon self-destruction.
 			enemy.Destroyed += OnEnemyDied;
 			enemy.SpawnPointPosition = transform.position;
 			_activeUnits++;
