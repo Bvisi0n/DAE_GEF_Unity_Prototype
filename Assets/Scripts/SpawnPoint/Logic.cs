@@ -1,10 +1,10 @@
-using System;
 using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.SpawnPoint
 {
 	[RequireComponent(typeof(Health))]
+	[RequireComponent(typeof(SquadColor))]
 	public sealed class Logic : MonoBehaviour, IObjective
 	{
 		[SerializeField, Min(0F)] private float _spawnInterval = 5F;
@@ -17,6 +17,7 @@ namespace Assets.Scripts.SpawnPoint
 		private TextMeshPro _textLabel;
 		private ObjectiveTracker _objectiveTracker;
 		private Health _health;
+		private SquadColor _squadColor;
 		private Visuals _visuals;
 		private int _activeUnits;
 
@@ -56,6 +57,7 @@ namespace Assets.Scripts.SpawnPoint
 			}
 
 			_health = GetComponent<Health>();
+			_squadColor = GetComponent<SquadColor>();
 		}
 
 		private void OnEnable()
@@ -106,18 +108,27 @@ namespace Assets.Scripts.SpawnPoint
 
 			if (!instance.TryGetComponent<Enemy.Enemy>(out var enemy))
 			{
-				Debug.LogError("EnemyLogic script not found on spawned GameObject.", this);
+				Debug.LogError("Enemy script not found on spawned GameObject.", this);
 				return;
 			}
 
 			// TODO: Bug - Cache all subscriptions and unsub from them upon self-destruction.
 			enemy.Destroyed += OnEnemyDied;
 			enemy.SpawnPointPosition = transform.position;
+
 			_activeUnits++;
 			_health.CanHealthChange = false;
 			_visuals.SetVulnerable(false);
 			UpdateTextLabel();
 			_timestampOfLastSpawn = Time.time;
+
+			if (!instance.TryGetComponent<SquadColor>(out var enemySquadColor))
+			{
+				Debug.LogError("SquadColor script not found on spawned GameObject.", this);
+				return;
+			}
+
+			enemySquadColor.SetSquadColor(_squadColor.Color);
 		}
 
 		/// <summary>
