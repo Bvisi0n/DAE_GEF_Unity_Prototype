@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 7102965557229861208}
   - component: {fileID: 8480479851676598728}
   m_Layer: 8
-  m_Name: Visual
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,7 +284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91cec7104cc57184d8d551c7d721c812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.SpawnPoint.Visuals
-  _Visual: {fileID: 5131401851915057298}
   _defaultMaterial: {fileID: 2100000, guid: 4edfe29c79175184ea497116361445d8, type: 2}
   _VulnerableMaterial: {fileID: 2100000, guid: bb51e2084ed828c41b8f034fef4c60ec, type: 2}
 --- !u!1 &7198197111471579963

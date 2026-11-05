@@ -178,7 +178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e141e3445e10db94a8b6047fd434e5ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
-  _inputAsset: {fileID: -944628639613478452, guid: a075961c0ec25a5448089abddf89fcc1, type: 3}
   _movementAction: {fileID: 1351708529346073633, guid: a075961c0ec25a5448089abddf89fcc1, type: 3}
   _jumpAction: {fileID: -7518061186138445350, guid: a075961c0ec25a5448089abddf89fcc1, type: 3}
   _shootAction: {fileID: -3315703229369442453, guid: a075961c0ec25a5448089abddf89fcc1, type: 3}
@@ -274,7 +273,7 @@ GameObject:
   - component: {fileID: 8747762214119587451}
   - component: {fileID: 144810018564616191}
   m_Layer: 10
-  m_Name: Visual
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
