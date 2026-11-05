@@ -7,8 +7,15 @@ namespace Assets.Scripts
 	public sealed class ObjectiveTracker : MonoBehaviour
 	{
 		private readonly Dictionary<IObjective.ObjectiveType, HashSet<IObjective>> _objectives = new();
+		private bool _allObjectivesCompleted;
 
 		public event Action<IObjective.ObjectiveType, int> ObjectiveCountChanged;
+		public event Action AllObjectivesCompleted;
+
+		private void Start()
+		{
+			_allObjectivesCompleted = false;
+		}
 
 		public int GetRemainingObjectives(IObjective.ObjectiveType type)
 		{
@@ -59,6 +66,19 @@ namespace Assets.Scripts
 			{	// It was the last of it's kind.
 				_objectives.Remove(objective.Type);
 			}
+
+			CheckAllObjectivesCompleted();
+		}
+
+		private void CheckAllObjectivesCompleted()
+		{
+			if (_allObjectivesCompleted || _objectives.Count > 0)
+			{
+				return;
+			}
+
+			_allObjectivesCompleted = true;
+			AllObjectivesCompleted?.Invoke();
 		}
 	}
 }
