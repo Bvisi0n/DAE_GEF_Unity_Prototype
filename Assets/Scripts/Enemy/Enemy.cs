@@ -7,9 +7,6 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.Enemy
 {
-	[System.Serializable]
-	public enum State { Idle, Chase, Attack }
-
 	[RequireComponent(typeof(NavMeshAgent))]
 	public sealed class Enemy : MonoBehaviour, IObjective
 	{
@@ -29,7 +26,10 @@ namespace Assets.Scripts.Enemy
 
 		private GameObject _attackTarget;
 		private NavMeshAgent _navMeshAgent;
+
+		private enum State { Idle, Chase, Attack }
 		private State _currentState;
+
 		private Vector3 _spawnPointPosition;
 
 		// TODO: Bug - Uses Time.time which does not account for pause or lag.
