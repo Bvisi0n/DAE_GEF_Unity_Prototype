@@ -71,6 +71,7 @@ namespace Assets.Scripts.Enemy
 		private void Start()
 		{
 			SetState(State.Idle);
+			WanderAroundSpawnPoint(false);
 		}
 
 		private void Update()
@@ -194,7 +195,7 @@ namespace Assets.Scripts.Enemy
 			return distance.sqrMagnitude <= range * range;
 		}
 
-		private void WanderAroundSpawnPoint()
+		private void WanderAroundSpawnPoint(bool useCooldown = true)
 		{
 			if (!_navMeshAgent.isOnNavMesh)
 			{
@@ -202,13 +203,17 @@ namespace Assets.Scripts.Enemy
 				return;
 			}
 
-			float destinationChangeCooldown = 5F;
-			if (Time.time - _timestampOfLastDestinationChange > destinationChangeCooldown)
+			const float k_DestinationChangeCooldown = 5F;
+			float elapsedTime = Time.time - _timestampOfLastDestinationChange;
+
+			if (useCooldown && elapsedTime < k_DestinationChangeCooldown)
 			{
-				_timestampOfLastDestinationChange = Time.time;
-				Vector2 randomPoint = UnityEngine.Random.insideUnitCircle * _idleWanderRange;
-				_navMeshAgent.destination = _spawnPointPosition + new Vector3(randomPoint.x, 0F, 0F);
+				return;
 			}
+
+			_timestampOfLastDestinationChange = Time.time;
+			Vector2 randomPoint = UnityEngine.Random.insideUnitCircle * _idleWanderRange;
+			_navMeshAgent.destination = _spawnPointPosition + new Vector3(randomPoint.x, 0F, 0F);
 		}
 
 		private void ChaseTarget()
