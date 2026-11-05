@@ -1,13 +1,8 @@
 namespace Assets.Scripts
 {
-	public enum ObjectiveType
-	{
-		SpawnPoint,
-		Enemy
-	}
-
 	public interface IObjective
 	{
-		ObjectiveType Type { get; }
+		public enum ObjectiveType { SpawnPoint, Enemy }
+		public ObjectiveType Type { get; }
 	}
 }

@@ -6,11 +6,11 @@ namespace Assets.Scripts
 {
 	public sealed class ObjectiveTracker : MonoBehaviour
 	{
-		private readonly Dictionary<ObjectiveType, HashSet<IObjective>> _objectives = new();
+		private readonly Dictionary<IObjective.ObjectiveType, HashSet<IObjective>> _objectives = new();
 
-		public event Action<ObjectiveType, int> ObjectiveCountChanged;
+		public event Action<IObjective.ObjectiveType, int> ObjectiveCountChanged;
 
-		public int GetRemainingObjectives(ObjectiveType type)
+		public int GetRemainingObjectives(IObjective.ObjectiveType type)
 		{
 			return _objectives.TryGetValue(type, out var objectives) ? objectives.Count : 0;
 		}

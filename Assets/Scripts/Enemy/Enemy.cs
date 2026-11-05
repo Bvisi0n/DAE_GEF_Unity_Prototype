@@ -42,7 +42,7 @@ namespace Assets.Scripts.Enemy
 			set { _spawnPointPosition = value; }
 		}
 
-		public ObjectiveType Type => ObjectiveType.Enemy;
+		public IObjective.ObjectiveType Type => IObjective.ObjectiveType.Enemy;
 
 		public event Action<Enemy> Destroyed;
 

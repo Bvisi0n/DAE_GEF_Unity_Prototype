@@ -23,7 +23,7 @@ namespace Assets.Scripts.SpawnPoint
 		// TODO: Bug - Uses Time.time which does not account for pause or lag.
 		private float _timestampOfLastSpawn;
 
-		public ObjectiveType Type => ObjectiveType.SpawnPoint;
+		public IObjective.ObjectiveType Type => IObjective.ObjectiveType.SpawnPoint;
 
 		private void Awake()
 		{

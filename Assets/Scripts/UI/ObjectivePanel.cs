@@ -54,7 +54,7 @@ namespace Assets.Scripts.UI
 				return;
 			}
 
-			int spawnPointCount = _objectiveTracker.GetRemainingObjectives(ObjectiveType.SpawnPoint);
+			int spawnPointCount = _objectiveTracker.GetRemainingObjectives(IObjective.ObjectiveType.SpawnPoint);
 
 			if (spawnPointCount > 0)
 			{
@@ -84,11 +84,11 @@ namespace Assets.Scripts.UI
 			}
 		}
 
-		private void OnObjectiveCountChanged(ObjectiveType type, int remainingCount)
+		private void OnObjectiveCountChanged(IObjective.ObjectiveType type, int remainingCount)
 		{
 			switch (type)
 			{
-				case ObjectiveType.SpawnPoint:
+				case IObjective.ObjectiveType.SpawnPoint:
 					if (_spawnPointObjective != null)
 					{
 						_spawnPointObjective.UpdateContent(remainingCount);
