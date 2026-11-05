@@ -124,9 +124,8 @@ namespace Assets.Scripts.SpawnPoint
 		/// reset the spawn cooldown to prevent an instant respawn,
 		/// update the count of units under my control and set my vulnerability accordingly.
 		/// </summary>
-		private void OnEnemyDied(Enemy.Enemy enemy)
+		private void OnEnemyDied()
 		{
-			enemy.Destroyed -= OnEnemyDied;
 			_activeUnits--;
 
 			if (_activeUnits <= 0)
