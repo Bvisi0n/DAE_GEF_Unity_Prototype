@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-// TODO: Feedback - How can the player know which unit belongs to which spawn point?
 // TODO: Refactor - Split this logic up in separate specialized scripts.
 
 namespace Assets.Scripts.Enemy
@@ -93,6 +92,12 @@ namespace Assets.Scripts.Enemy
 		private void OnDestroy()
 		{
 			Destroyed?.Invoke();
+		}
+
+		public void SetTierStats(int attackDamage, float attackCooldown)
+		{
+			_attackDamage = attackDamage;
+			_attackCooldown = attackCooldown;
 		}
 
 		private void HandleIdleState()

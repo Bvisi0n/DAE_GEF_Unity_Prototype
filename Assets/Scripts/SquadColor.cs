@@ -1,4 +1,7 @@
+using Assets.Scripts.Enemy;
 using UnityEngine;
+using UnityEngine.AI;
+using static Assets.Scripts.Enemy.Tier;
 
 namespace Assets.Scripts
 {
@@ -7,9 +10,8 @@ namespace Assets.Scripts
 		private static readonly int k_BaseColorId = Shader.PropertyToID("_BaseColor");
 
 		[SerializeField] private Renderer _colorID;
-		[SerializeField] private Color _color;
 
-		public Color Color => _color;
+		private Color _color;
 
 		private void Awake()
 		{
@@ -25,20 +27,41 @@ namespace Assets.Scripts
 			SetSquadColor(_color);
 		}
 
-		private void OnValidate()
+		public void SetSquadColor(Enemy.Tier.Belt newColor)
 		{
-			SetSquadColor(_color);
+			// TODO: Refactor - To many unrelated objects involve the Belt enum.
+			// This is messy and simply not done but it provides a single source of truth for color and I'm out of budget (time) to do it properly.
+			switch (newColor)
+			{
+				case Belt.White:
+					SetSquadColor(Color.white);
+					break;
+				case Belt.Yellow:
+					SetSquadColor(Color.yellow);
+					break;
+				case Belt.Orange:
+					SetSquadColor(Color.orange);
+					break;
+				case Belt.Purple:
+					SetSquadColor(Color.purple);
+					break;
+				case Belt.Brown:
+					SetSquadColor(Color.brown);
+					break;
+				case Belt.Black:
+					SetSquadColor(Color.black);
+					break;
+			}
 		}
 
 		public void SetSquadColor(Color newColor)
 		{
-			_color = newColor;
-
 			if (_colorID == null)
 			{
 				return;
 			}
 
+			_color = newColor;
 			MaterialPropertyBlock newBlock = new();
 			newBlock.SetColor(k_BaseColorId, _color);
 			_colorID.SetPropertyBlock(newBlock);

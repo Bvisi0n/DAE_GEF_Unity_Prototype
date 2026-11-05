@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.SpawnPoint
 {
-	public sealed class Visuals : MonoBehaviour
+	public sealed class VulnerablePulse : MonoBehaviour
 	{
 		[SerializeField] private Material _defaultMaterial;
 		[SerializeField] private Material _VulnerableMaterial;

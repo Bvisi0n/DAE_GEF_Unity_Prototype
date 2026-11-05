@@ -7,18 +7,16 @@ namespace Assets.Scripts.SpawnPoint
 	[RequireComponent(typeof(SquadColor))]
 	public sealed class Logic : MonoBehaviour, IObjective
 	{
-		[SerializeField, Min(0F)] private float _spawnInterval = 5F;
-
-		[SerializeField, Min(1), Tooltip("Maximum amount of units this spawnpoint can have active at a time.")]
-		private int _maxUnitCount = 1;
-
 		[SerializeField] private GameObject _unitTemplate;
+		[SerializeField, Min(1), Tooltip("Maximum amount of units this spawnpoint can have active at a time.")] private int _maxUnitCount = 1;
+		[SerializeField, Min(0F)] private float _spawnInterval = 5F;
+		[SerializeField] private Enemy.Tier.Belt _belt = Enemy.Tier.Belt.White;
 
 		private TextMeshPro _textLabel;
 		private ObjectiveTracker _objectiveTracker;
 		private Health _health;
 		private SquadColor _squadColor;
-		private Visuals _visuals;
+		private VulnerablePulse _visuals;
 		private int _activeUnits;
 
 		// TODO: Bug - Uses Time.time which does not account for pause or lag.
@@ -49,7 +47,7 @@ namespace Assets.Scripts.SpawnPoint
 				Debug.LogWarning("Couldn't find ObjectiveManager in this scene.", this);
 			}
 
-			_visuals = GetComponentInChildren<Visuals>();
+			_visuals = GetComponentInChildren<VulnerablePulse>();
 
 			if (_visuals == null)
 			{
@@ -72,6 +70,7 @@ namespace Assets.Scripts.SpawnPoint
 		{
 			_health.CanHealthChange = false;
 			_visuals.SetVulnerable(false);
+			_squadColor.SetSquadColor(_belt);
 			UpdateTextLabel();
 		}
 
@@ -122,13 +121,13 @@ namespace Assets.Scripts.SpawnPoint
 			UpdateTextLabel();
 			_timestampOfLastSpawn = Time.time;
 
-			if (!instance.TryGetComponent<SquadColor>(out var enemySquadColor))
+			if (!instance.TryGetComponent<Enemy.Tier>(out var enemyTier))
 			{
-				Debug.LogError("SquadColor script not found on spawned GameObject.", this);
+				Debug.LogError("Enemy.Tier script not found on spawned GameObject.", this);
 				return;
 			}
 
-			enemySquadColor.SetSquadColor(_squadColor.Color);
+			enemyTier.SetBelt(_belt);
 		}
 
 		/// <summary>

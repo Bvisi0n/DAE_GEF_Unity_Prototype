@@ -55,6 +55,12 @@ namespace Assets.Scripts
 			Debug.Log($"Called the method ChangeHealth({amount}), _canTakeDamage is {_canHealthChange} and current health is now {_currentHealth}.", this);
 		}
 
+		public void SetMaxHealth(int newHealth)
+		{
+			_maxHealth = newHealth;
+			_currentHealth = newHealth;
+		}
+
 		/// <summary>Instruct the GameObject to self-destruct.</summary>
 		/// <remarks>Bypasses CanTakeDamage flag.</remarks>
 		public void Die()
