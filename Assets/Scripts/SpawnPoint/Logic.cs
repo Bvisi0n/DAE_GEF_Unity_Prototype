@@ -68,9 +68,12 @@ namespace Assets.Scripts.SpawnPoint
 
 		private void Start()
 		{
-			_health.CanHealthChange = false;
-			_visuals.SetVulnerable(false);
 			_squadColor.SetSquadColor(_belt);
+			for (int i = 0; i < _maxUnitCount; i++)
+			{
+				SpawnUnit();
+			}
+
 			UpdateTextLabel();
 		}
 
