@@ -306,5 +306,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileLogic
   _speed: 25
-  _lifeTime: 5
+  _lifeTime: 0.8
   _damage: 1
