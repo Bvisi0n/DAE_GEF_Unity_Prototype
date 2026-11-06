@@ -8,14 +8,8 @@ namespace Assets.Scripts
 		[SerializeField, Min(1)] int _maxHealth = 10;
 
 		private int _currentHealth;
-		private bool _canHealthChange = true;
 
-		public bool CanHealthChange
-		{
-			get { return _canHealthChange; }
-			set { _canHealthChange = value; }
-		}
-
+		public bool CanHealthChange { get; set; }
 		public int CurrentHealth => _currentHealth;
 		public int MaxHealth => _maxHealth;
 
@@ -24,6 +18,7 @@ namespace Assets.Scripts
 
 		private void Start()
 		{
+			CanHealthChange = true;
 			_currentHealth = _maxHealth;
 			HealthChanged?.Invoke(_currentHealth);
 		}
@@ -39,7 +34,7 @@ namespace Assets.Scripts
 		/// <remarks>Pass negative values to decrease current health.</remarks>
 		public void ChangeHealth(int amount)
 		{
-			if (_canHealthChange)
+			if (CanHealthChange)
 			{
 				int previousHealth = _currentHealth;
 				_currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
@@ -52,7 +47,7 @@ namespace Assets.Scripts
 				}
 			}
 
-			Debug.Log($"Called the method ChangeHealth({amount}), _canTakeDamage is {_canHealthChange} and current health is now {_currentHealth}.", this);
+			Debug.Log($"Called the method ChangeHealth({amount}), _canTakeDamage is {CanHealthChange} and current health is now {_currentHealth}.", this);
 		}
 
 		public void SetMaxHealth(int newHealth)
