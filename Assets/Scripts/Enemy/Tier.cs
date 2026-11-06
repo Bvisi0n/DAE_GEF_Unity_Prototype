@@ -3,13 +3,13 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.Enemy
 {
-	[RequireComponent(typeof(Enemy))]
+	[RequireComponent(typeof(Logic))]
 	[RequireComponent(typeof(Health))]
 	[RequireComponent(typeof(NavMeshAgent))]
 	[RequireComponent(typeof(SquadColor))]
 	public class Tier : MonoBehaviour
 	{
-		private Enemy _enemy;
+		private Logic _enemy;
 		private Health _health;
 		private NavMeshAgent _navMeshAgent;
 		private SquadColor _squadColor;
@@ -18,7 +18,7 @@ namespace Assets.Scripts.Enemy
 
 		private void Awake()
 		{
-			_enemy = GetComponent<Enemy>();
+			_enemy = GetComponent<Logic>();
 			_health = GetComponent<Health>();
 			_navMeshAgent = GetComponent<NavMeshAgent>();
 			_squadColor = GetComponent<SquadColor>();

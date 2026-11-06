@@ -7,7 +7,7 @@ using UnityEngine.AI;
 namespace Assets.Scripts.Enemy
 {
 	[RequireComponent(typeof(NavMeshAgent))]
-	public sealed class Enemy : MonoBehaviour, IObjective
+	public sealed class Logic : MonoBehaviour, IObjective
 	{
 		[SerializeField] private GameObject _attackIndicator;
 		[SerializeField] private GameObject _chaseIndicator;
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Enemy
 
 		public IObjective.ObjectiveType Type => IObjective.ObjectiveType.Enemy;
 
-		public event Action<Enemy> Destroyed;
+		public event Action<Logic> Destroyed;
 
 		private void Awake()
 		{
