@@ -266,7 +266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
       propertyPath: _spawnInterval
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -359,7 +359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
       propertyPath: _spawnInterval
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

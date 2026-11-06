@@ -19,9 +19,7 @@ namespace Assets.Scripts.SpawnPoint
 		private SquadColor _squadColor;
 		private VulnerablePulse _visuals;
 		private List<Enemy.Enemy> _activeUnits;
-
-		// TODO: Bug - Uses Time.time which does not account for pause or lag.
-		private float _timestampOfLastSpawn;
+		private float _spawnTimer;
 
 		public IObjective.ObjectiveType Type => IObjective.ObjectiveType.SpawnPoint;
 
@@ -87,12 +85,12 @@ namespace Assets.Scripts.SpawnPoint
 				return;
 			}
 
-			if (Time.time - _timestampOfLastSpawn < _spawnInterval)
-			{
-				return;
-			}
+			_spawnTimer -= Time.deltaTime;
 
-			SpawnUnit();
+			if (_spawnTimer <= 0.0F)
+			{
+				SpawnUnit();
+			}
 		}
 
 		private void OnDisable()
@@ -118,6 +116,7 @@ namespace Assets.Scripts.SpawnPoint
 		private void SpawnUnit()
 		{
 			GameObject instance = Instantiate(_unitTemplate, transform.position, transform.rotation);
+			_spawnTimer = _spawnInterval;
 
 			if (!instance.TryGetComponent<Enemy.Enemy>(out var enemy))
 			{
@@ -131,7 +130,6 @@ namespace Assets.Scripts.SpawnPoint
 			_health.CanHealthChange = false;
 			_visuals.SetVulnerable(false);
 			UpdateTextLabel();
-			_timestampOfLastSpawn = Time.time;
 
 			if (!instance.TryGetComponent<Enemy.Tier>(out var enemyTier))
 			{
@@ -158,7 +156,7 @@ namespace Assets.Scripts.SpawnPoint
 			}
 
 			UpdateTextLabel();
-			_timestampOfLastSpawn = Time.time;
+			_spawnTimer = _spawnInterval;
 		}
 
 		private void UpdateTextLabel()
@@ -168,7 +166,7 @@ namespace Assets.Scripts.SpawnPoint
 				return;
 			}
 
-			_textLabel.text = $"{_activeUnits} / {_maxUnitCount}";
+			_textLabel.text = $"{_activeUnits.Count} / {_maxUnitCount}";
 		}
 	}
 }
