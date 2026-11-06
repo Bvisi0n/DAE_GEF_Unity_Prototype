@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-	public sealed class AttackLogic : MonoBehaviour
+	public sealed class Attack : MonoBehaviour
 	{
 		[SerializeField] private GameObject _projectileTemplate;
 		[SerializeField] private Transform _projectileSocket;
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Player
 			Instantiate(_projectileTemplate, _projectileSocket.position, _projectileSocket.rotation);
 		}
 
-		public void Attack()
+		public void TryAttack()
 		{
 			_isAttacking = true;
 		}

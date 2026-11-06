@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace Assets.Scripts.Player
 {
-	[RequireComponent(typeof(AttackLogic))]
+	[RequireComponent(typeof(Attack))]
 	[RequireComponent(typeof(Movement))]
 	public sealed class InputHandler : MonoBehaviour
 	{
@@ -11,7 +11,7 @@ namespace Assets.Scripts.Player
 		[SerializeField] private InputActionReference _jumpAction;
 		[SerializeField] private InputActionReference _shootAction;
 
-		private AttackLogic _playerAttack;
+		private Attack _playerAttack;
 		private Movement _playerMovement;
 
 		/// <summary>
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Player
 				Debug.LogWarning("No MainCamera was found. Aiming input will be skipped.", this);
 			}
 
-			_playerAttack = GetComponent<AttackLogic>();
+			_playerAttack = GetComponent<Attack>();
 			_playerMovement = GetComponent<Movement>();
 		}
 
@@ -97,7 +97,7 @@ namespace Assets.Scripts.Player
 		{
 			if (_playerAttack != null && _shootAction.action.IsPressed())
 			{
-				_playerAttack.Attack();
+				_playerAttack.TryAttack();
 			}
 		}
 
