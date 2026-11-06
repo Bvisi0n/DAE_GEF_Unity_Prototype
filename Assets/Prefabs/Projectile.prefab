@@ -308,3 +308,6 @@ MonoBehaviour:
   _speed: 25
   _lifeTime: 0.8
   _damage: 1
+  _selfDestructLayers:
+    serializedVersion: 2
+    m_Bits: 192

@@ -11,18 +11,7 @@ namespace Assets.Scripts
 		[SerializeField, Min(0F)] private float _speed = 20F;
 		[SerializeField, Min(0F)] private float _lifeTime = 10.0F;
 		[SerializeField, Min(0F)] private int _damage = 1;
-
-		private int _layerMask;
-
-		private void Awake()
-		{
-			_layerMask = LayerMask.GetMask(new string[] { k_StaticLevelLayer, k_GroundLayer });
-
-			if (_layerMask == 0)
-			{
-				Debug.LogError($"Layer '{k_StaticLevelLayer}' or '{k_GroundLayer}' does not exist or is not configured.", this);
-			}
-		}
+		[SerializeField, Tooltip("Collisions with these layers will destroy this object.\nThese should be the ground, walls, etc... Not things it should deal damage to.")] private LayerMask _selfDestructLayers;
 
 		private void Start()
 		{
@@ -60,7 +49,7 @@ namespace Assets.Scripts
 		{
 			Ray collisionRay = new(transform.position, transform.forward);
 
-			if (Physics.Raycast(collisionRay, Time.fixedDeltaTime * _speed, _layerMask))
+			if (Physics.Raycast(collisionRay, Time.fixedDeltaTime * _speed, _selfDestructLayers))
 			{
 				Destroy(gameObject);
 				return true;
