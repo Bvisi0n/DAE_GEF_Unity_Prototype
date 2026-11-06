@@ -28,18 +28,10 @@ namespace Assets.Scripts.Enemy
 
 		private enum State { Idle, Chase, Attack }
 		private State _currentState;
-
-		private Vector3 _spawnPointPosition;
-
 		private float _destinationChangeTimer;
 		private float _attackTimer;
 
-		public Vector3 SpawnPointPosition
-		{
-			get { return _spawnPointPosition; }
-			set { _spawnPointPosition = value; }
-		}
-
+		public Vector3 SpawnPointPosition { get; set; }
 		public IObjective.ObjectiveType Type => IObjective.ObjectiveType.Enemy;
 
 		public event Action<Logic> Destroyed;
@@ -212,7 +204,7 @@ namespace Assets.Scripts.Enemy
 			const float k_DestinationChangeCooldown = 5F;
 			_destinationChangeTimer = k_DestinationChangeCooldown;
 			Vector2 randomPoint = UnityEngine.Random.insideUnitCircle * _idleWanderRange;
-			_navMeshAgent.destination = _spawnPointPosition + new Vector3(randomPoint.x, 0F, 0F);
+			_navMeshAgent.destination = SpawnPointPosition + new Vector3(randomPoint.x, 0F, 0F);
 		}
 
 		private void ChaseTarget()
