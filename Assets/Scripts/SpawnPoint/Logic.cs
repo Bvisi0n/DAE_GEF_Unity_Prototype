@@ -87,7 +87,7 @@ namespace Assets.Scripts.SpawnPoint
 
 			_spawnTimer -= Time.deltaTime;
 
-			if (_spawnTimer <= 0.0F)
+			if (_spawnTimer <= 0F)
 			{
 				SpawnUnit();
 			}
