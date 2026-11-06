@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-	public sealed class Logic : MonoBehaviour
+	public sealed class DestroyedEvent : MonoBehaviour
 	{
 		public event Action Destroyed;
 

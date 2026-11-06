@@ -74,13 +74,13 @@ GameObject:
   - component: {fileID: 505542108138538356}
   - component: {fileID: 1498728621373605102}
   - component: {fileID: 3770348235999307365}
-  - component: {fileID: 365525734288482371}
   - component: {fileID: 3188259616576947094}
   - component: {fileID: 5954144370982604179}
   - component: {fileID: 1649331459926404352}
   - component: {fileID: 3586336127928322507}
   - component: {fileID: 930320336299472858}
   - component: {fileID: 7601604249027706184}
+  - component: {fileID: 365525734288482371}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -154,18 +154,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &365525734288482371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3168892227503986549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61c94bb0d441b1d439639efe39daac36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Logic
 --- !u!114 &3188259616576947094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +249,18 @@ MonoBehaviour:
   _color: {r: 0.8627452, g: 0.07843138, b: 0.2352941, a: 1}
   _peakIntensity: 0.333
   _fadeOutDuration: 0.6
+--- !u!114 &365525734288482371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168892227503986549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c94bb0d441b1d439639efe39daac36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Logic
 --- !u!1 &3198462214603285286
 GameObject:
   m_ObjectHideFlags: 0

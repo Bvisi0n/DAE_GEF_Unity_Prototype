@@ -14,7 +14,7 @@ namespace Assets.Scripts
 		private enum GameState { Playing, Won, Lost }
 		private GameState _gameState;
 
-		private Player.Logic _player;
+		private Player.DestroyedEvent _player;
 
 		private void Awake()
 		{
@@ -57,7 +57,7 @@ namespace Assets.Scripts
 				return;
 			}
 
-			_player = player.GetComponent<Player.Logic>();
+			_player = player.GetComponent<Player.DestroyedEvent>();
 
 			if (_player == null)
 			{
