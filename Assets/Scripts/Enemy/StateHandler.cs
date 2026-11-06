@@ -9,7 +9,7 @@ namespace Assets.Scripts.Enemy
 	[RequireComponent(typeof(Movement))]
 	[RequireComponent(typeof(StateIndicator))]
 	[RequireComponent(typeof(Targeting))]
-	public sealed class StateHandler : MonoBehaviour, IObjective
+	public sealed class StateHandler : MonoBehaviour
 	{
 		[SerializeField, Min(0F), Tooltip("The range of the attack ability.")]
 		private float _attackRange = 1F;
@@ -22,8 +22,6 @@ namespace Assets.Scripts.Enemy
 		private StateIndicator _stateIndicator;
 		private Targeting _targeting;
 		private State _currentState;
-
-		public IObjective.ObjectiveType Type => IObjective.ObjectiveType.Enemy;
 
 		private void Awake()
 		{
