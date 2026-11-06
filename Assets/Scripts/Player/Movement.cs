@@ -24,23 +24,12 @@ namespace Assets.Scripts.Player
 		private Collider _collider;
 		private Rigidbody _rigidBody;
 
-		private Vector3 _desiredLookAtPoint;
-		private Vector3 _desiredMovementDirection;
-
 		private bool _isGrounded;
 		private bool _jumpPhaseActive;
 		private float _jumpStartHeight;
 
-		public Vector3 DesiredLookAtPoint
-		{
-			get { return _desiredLookAtPoint; }
-			set { _desiredLookAtPoint = value; }
-		}
-		public Vector3 DesiredMovementDirection
-		{
-			get { return _desiredMovementDirection; }
-			set { _desiredMovementDirection = value; }
-		}
+		public Vector3 DesiredLookAtPoint { get; set; }
+		public Vector3 DesiredMovementDirection { get; set; }
 
 		private void Awake()
 		{
@@ -101,7 +90,7 @@ namespace Assets.Scripts.Player
 
 		private void HandleMovement()
 		{
-			Vector3 movement = _desiredMovementDirection.normalized;
+			Vector3 movement = DesiredMovementDirection.normalized;
 			movement *= _movementSpeed;
 			movement.y = _rigidBody.linearVelocity.y;
 			_rigidBody.linearVelocity = movement;
@@ -126,7 +115,7 @@ namespace Assets.Scripts.Player
 			}
 
 			// TODO: Bug - Player can aim inside itself.
-			_shoulderSocket.transform.LookAt(_desiredLookAtPoint);
+			_shoulderSocket.transform.LookAt(DesiredLookAtPoint);
 		}
 
 		private void StartJumpPhase()
