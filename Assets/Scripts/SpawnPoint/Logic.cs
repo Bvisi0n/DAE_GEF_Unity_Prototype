@@ -125,7 +125,14 @@ namespace Assets.Scripts.SpawnPoint
 			}
 
 			enemy.Destroyed += OnEnemyDied;
-			enemy.SpawnPointPosition = transform.position;
+
+			if (!instance.TryGetComponent<Enemy.Movement>(out var enemyMovement))
+			{
+				Debug.LogError("Enemy.Movement script not found on spawned GameObject.", this);
+				return;
+			}
+
+			enemyMovement.SpawnPointPosition = transform.position;
 			_activeUnits.Add(enemy);
 			_health.CanHealthChange = false;
 			_visuals.SetVulnerable(false);

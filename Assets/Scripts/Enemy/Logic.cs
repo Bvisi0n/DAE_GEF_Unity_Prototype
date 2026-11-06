@@ -8,11 +8,10 @@ namespace Assets.Scripts.Enemy
 {
 	public enum State { Idle, Chase, Attack }
 
-	[RequireComponent(typeof(NavMeshAgent))]
+	[RequireComponent(typeof(Movement))]
 	[RequireComponent(typeof(StateIndicator))]
 	public sealed class Logic : MonoBehaviour, IObjective
 	{
-
 		[SerializeField, Min(0F)] private int _attackDamage = 1;
 		[SerializeField, Min(0F)] private float _attackCooldown = 1F;
 
@@ -22,17 +21,12 @@ namespace Assets.Scripts.Enemy
 		[SerializeField, Min(0F), Tooltip("The range at which this unit will start chasing it's target.")]
 		private float _spotRange = 10F;
 
-		[SerializeField, Min(0F), Tooltip("How far the unit will wander from it's spawn point when idle.")]
-		private float _idleWanderRange = 5F;
-
-		private GameObject _attackTarget;
-		private NavMeshAgent _navMeshAgent;
+		private Transform _attackTarget;
+		private Movement _movement;
 		private StateIndicator _stateIndicator;
 		private State _currentState;
-		private float _destinationChangeTimer;
 		private float _attackTimer;
 
-		public Vector3 SpawnPointPosition { get; set; }
 		public IObjective.ObjectiveType Type => IObjective.ObjectiveType.Enemy;
 
 		public event Action<Logic> Destroyed;
@@ -40,21 +34,24 @@ namespace Assets.Scripts.Enemy
 		private void Awake()
 		{
 			const string targetTag = "Player";
-			_attackTarget = GameObject.FindWithTag(targetTag);
+			GameObject attackTarget = GameObject.FindWithTag(targetTag);
 
-			if (_attackTarget == null)
+			if (attackTarget == null)
 			{
 				Debug.LogWarning($"No GameObject with tag '{targetTag}' found. No target set.", this);
 			}
+			else
+			{
+				_attackTarget = attackTarget.transform;
+			}
 
-			_navMeshAgent = GetComponent<NavMeshAgent>();
+			_movement = GetComponent<Movement>();
 			_stateIndicator = GetComponent<StateIndicator>();
 		}
 
 		private void Start()
 		{
 			SetState(State.Idle);
-			WanderAroundSpawnPoint(false);
 		}
 
 		private void Update()
@@ -93,7 +90,7 @@ namespace Assets.Scripts.Enemy
 			}
 			else
 			{
-				WanderAroundSpawnPoint();
+				_movement.WanderAroundSpawnPoint();
 			}
 		}
 
@@ -118,7 +115,7 @@ namespace Assets.Scripts.Enemy
 			}
 			else
 			{
-				ChaseTarget();
+				_movement.ChaseTarget(_attackTarget.transform);
 			}
 		}
 
@@ -167,45 +164,6 @@ namespace Assets.Scripts.Enemy
 
 			Vector3 distance = _attackTarget.transform.position - transform.position;
 			return distance.sqrMagnitude <= range * range;
-		}
-
-		private void WanderAroundSpawnPoint(bool useCooldown = true)
-		{
-			if (!_navMeshAgent.isOnNavMesh)
-			{
-				Debug.LogWarning("Agent is not on Nav Mesh Surface.", this);
-				return;
-			}
-
-			_destinationChangeTimer -= Time.deltaTime;
-
-			if (useCooldown && _destinationChangeTimer > 0F)
-			{
-				return;
-			}
-
-			const float k_DestinationChangeCooldown = 5F;
-			_destinationChangeTimer = k_DestinationChangeCooldown;
-			Vector2 randomPoint = UnityEngine.Random.insideUnitCircle * _idleWanderRange;
-			_navMeshAgent.destination = SpawnPointPosition + new Vector3(randomPoint.x, 0F, 0F);
-		}
-
-		private void ChaseTarget()
-		{
-			if (!_navMeshAgent.isOnNavMesh)
-			{
-				Debug.LogWarning("Agent is not on Nav Mesh Surface.", this);
-				return;
-			}
-
-			_destinationChangeTimer -= Time.deltaTime;
-			const float k_DestinationChangeCooldown = 0.5F;
-
-			if (_destinationChangeTimer > k_DestinationChangeCooldown || _destinationChangeTimer <= 0F)
-			{
-				_navMeshAgent.destination = _attackTarget.transform.position;
-				_destinationChangeTimer = k_DestinationChangeCooldown;
-			}
 		}
 
 		private void AttackTarget()

@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 3794713216670148705}
   - component: {fileID: 6950290096288033641}
   - component: {fileID: 2550958452108646632}
+  - component: {fileID: 7408302348114387154}
   - component: {fileID: 8791309649227845003}
   - component: {fileID: -719191447806828415}
   - component: {fileID: 6378876021136115955}
@@ -312,6 +313,18 @@ MonoBehaviour:
   _attackCooldown: 1
   _attackRange: 1.5
   _spotRange: 20
+--- !u!114 &7408302348114387154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3151823875788373056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c54244be29e3344d9be1e8ce010c3f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemy.Movement
   _idleWanderRange: 10
 --- !u!114 &8791309649227845003
 MonoBehaviour:
