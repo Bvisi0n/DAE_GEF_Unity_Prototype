@@ -246,78 +246,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9148848083540698365, guid: 6166dfbe405b94e479b1743a894e7b38, type: 3}
   m_PrefabInstance: {fileID: 8376591842653473209}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &145950876
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2518925017606064562, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 2518925017606064562, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2518925017606064562, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2518925017606064562, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2518925017606064562, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2518925017606064562, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2518925017606064562, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2518925017606064562, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2518925017606064562, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2518925017606064562, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7198197111471579963, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: m_Name
-      value: SpawnPoint (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: _belt
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: _maxUnitCount
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      propertyPath: _spawnInterval
-      value: 5
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2730408416405738325, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-  m_SourcePrefab: {fileID: 100100000, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
 --- !u!43 &183523913
 Mesh:
   m_ObjectHideFlags: 0
@@ -602,7 +530,7 @@ PrefabInstance:
       objectReference: {fileID: 2068969215}
     - target: {fileID: 4673550947960012524, guid: 0230c5daf399df840961451efb9e251f, type: 3}
       propertyPath: _nextLevel
-      value: Level3
+      value: Level4
       objectReference: {fileID: 0}
     - target: {fileID: 4828677862393146304, guid: 0230c5daf399df840961451efb9e251f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1098,15 +1026,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7198197111471579963, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
       propertyPath: m_Name
-      value: SpawnPoint (1)
+      value: SpawnPointB
       objectReference: {fileID: 0}
     - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
       propertyPath: _belt
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
       propertyPath: _maxUnitCount
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1522,14 +1450,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7198197111471579963, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
       propertyPath: m_Name
-      value: SpawnPoint
+      value: SpawnPointA
       objectReference: {fileID: 0}
     - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
       propertyPath: _belt
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
       propertyPath: _maxUnitCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
+      propertyPath: _spawnInterval
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2160,11 +2092,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7198197111471579963, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
       propertyPath: m_Name
-      value: SpawnPoint (2)
+      value: SpawnPointC
       objectReference: {fileID: 0}
     - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
       propertyPath: _belt
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8876108687479984028, guid: 8844d7fd802660e4f86a94a560bb6942, type: 3}
       propertyPath: _maxUnitCount
@@ -3032,4 +2964,3 @@ SceneRoots:
   - {fileID: 1292422599}
   - {fileID: 1166739909}
   - {fileID: 1899900879}
-  - {fileID: 145950876}
