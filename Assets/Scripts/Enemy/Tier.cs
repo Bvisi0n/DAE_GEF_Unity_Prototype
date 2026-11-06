@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.Enemy
 {
+	public enum Belt { White, Yellow, Orange, Purple, Brown, Black }
+
 	[RequireComponent(typeof(Attack))]
 	[RequireComponent(typeof(Health))]
 	[RequireComponent(typeof(NavMeshAgent))]
@@ -14,7 +16,6 @@ namespace Assets.Scripts.Enemy
 		private NavMeshAgent _navMeshAgent;
 		private SquadColor _squadColor;
 
-		public enum Belt { White, Yellow, Orange, Purple, Brown, Black }
 
 		private void Awake()
 		{

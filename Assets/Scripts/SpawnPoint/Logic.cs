@@ -11,7 +11,7 @@ namespace Assets.Scripts.SpawnPoint
 		[SerializeField] private GameObject _unitTemplate;
 		[SerializeField, Min(1), Tooltip("Maximum amount of units this spawnpoint can have active at a time.")] private int _maxUnitCount = 1;
 		[SerializeField, Min(0F)] private float _spawnInterval = 5F;
-		[SerializeField] private Enemy.Tier.Belt _belt = Enemy.Tier.Belt.White;
+		[SerializeField] private Enemy.Belt _belt = Enemy.Belt.White;
 
 		private TextMeshPro _textLabel;
 		private ObjectiveTracker _objectiveTracker;

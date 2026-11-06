@@ -1,7 +1,5 @@
 using Assets.Scripts.Enemy;
 using UnityEngine;
-using UnityEngine.AI;
-using static Assets.Scripts.Enemy.Tier;
 
 namespace Assets.Scripts
 {
@@ -27,7 +25,7 @@ namespace Assets.Scripts
 			SetSquadColor(_color);
 		}
 
-		public void SetSquadColor(Enemy.Tier.Belt newColor)
+		public void SetSquadColor(Enemy.Belt newColor)
 		{
 			// TODO: Refactor - To many unrelated objects involve the Belt enum.
 			// This is messy but it provides a single source of truth for color and I'm out of budget (time) to do it properly.
