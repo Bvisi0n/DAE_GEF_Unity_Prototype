@@ -312,7 +312,7 @@ MonoBehaviour:
   _attackDamage: 1
   _attackCooldown: 1
   _attackRange: 1.5
-  _spotRange: 10
+  _spotRange: 20
   _idleWanderRange: 10
 --- !u!114 &8791309649227845003
 MonoBehaviour:

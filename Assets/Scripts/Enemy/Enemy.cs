@@ -31,8 +31,7 @@ namespace Assets.Scripts.Enemy
 
 		private Vector3 _spawnPointPosition;
 
-		// TODO: Bug - Uses Time.time which does not account for pause or lag.
-		private float _timestampOfLastDestinationChange;
+		private float _destinationChangeTimer;
 		private float _attackTimer;
 
 		public Vector3 SpawnPointPosition
@@ -203,15 +202,15 @@ namespace Assets.Scripts.Enemy
 				return;
 			}
 
-			const float k_DestinationChangeCooldown = 5F;
-			float elapsedTime = Time.time - _timestampOfLastDestinationChange;
+			_destinationChangeTimer -= Time.deltaTime;
 
-			if (useCooldown && elapsedTime < k_DestinationChangeCooldown)
+			if (useCooldown && _destinationChangeTimer > 0F)
 			{
 				return;
 			}
 
-			_timestampOfLastDestinationChange = Time.time;
+			const float k_DestinationChangeCooldown = 5F;
+			_destinationChangeTimer = k_DestinationChangeCooldown;
 			Vector2 randomPoint = UnityEngine.Random.insideUnitCircle * _idleWanderRange;
 			_navMeshAgent.destination = _spawnPointPosition + new Vector3(randomPoint.x, 0F, 0F);
 		}
@@ -224,11 +223,13 @@ namespace Assets.Scripts.Enemy
 				return;
 			}
 
-			float destinationChangeCooldown = 0.5F;
-			if (Time.time - _timestampOfLastDestinationChange > destinationChangeCooldown)
+			_destinationChangeTimer -= Time.deltaTime;
+			const float k_DestinationChangeCooldown = 0.5F;
+
+			if (_destinationChangeTimer > k_DestinationChangeCooldown || _destinationChangeTimer <= 0F)
 			{
-				_timestampOfLastDestinationChange = Time.time;
 				_navMeshAgent.destination = _attackTarget.transform.position;
+				_destinationChangeTimer = k_DestinationChangeCooldown;
 			}
 		}
 
