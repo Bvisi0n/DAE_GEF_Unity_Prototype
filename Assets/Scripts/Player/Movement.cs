@@ -26,7 +26,6 @@ namespace Assets.Scripts.Player
 
 		private bool _isGrounded;
 		private bool _jumpPhaseActive;
-		private float _jumpStartHeight;
 
 		public Vector3 DesiredLookAtPoint { get; set; }
 		public Vector3 DesiredMovementDirection { get; set; }
@@ -120,7 +119,6 @@ namespace Assets.Scripts.Player
 
 		private void StartJumpPhase()
 		{
-			_jumpStartHeight = _rigidBody.position.y;
 			_jumpPhaseActive = true;
 			_isGrounded = false;
 
