@@ -122,31 +122,34 @@ namespace Assets.Scripts.SpawnPoint
 
 			if (!instance.TryGetComponent<Enemy.DestroyedEvent>(out var enemy))
 			{
-				Debug.LogError("Enemy script not found on spawned GameObject.", this);
-				return;
+				Debug.LogWarning("Enemy script not found on spawned GameObject.", this);
 			}
-
-			enemy.Destroyed += OnEnemyDied;
-			_activeUnits.Add(enemy);
+			else
+			{
+				enemy.Destroyed += OnEnemyDied;
+				_activeUnits.Add(enemy);
+				_health.CanHealthChange = false;
+				_vulnerablePulse.SetVulnerable(false);
+				UpdateTextLabel();
+			}
 
 			if (!instance.TryGetComponent<Enemy.Movement>(out var enemyMovement))
 			{
-				Debug.LogError("Enemy.Movement script not found on spawned GameObject.", this);
-				return;
+				Debug.LogWarning("Enemy.Movement script not found on spawned GameObject.", this);
 			}
-
-			enemyMovement.SpawnPointPosition = transform.position;
-			_health.CanHealthChange = false;
-			_visuals.SetVulnerable(false);
-			UpdateTextLabel();
+			else
+			{
+				enemyMovement.SpawnPointPosition = transform.position;
+			}
 
 			if (!instance.TryGetComponent<Enemy.Tier>(out var enemyTier))
 			{
-				Debug.LogError("Enemy.Tier script not found on spawned GameObject.", this);
-				return;
+				Debug.LogWarning("Enemy.Tier script not found on spawned GameObject.", this);
 			}
-
-			enemyTier.SetBelt(_belt);
+			else
+			{
+				enemyTier.SetBelt(_belt);
+			}
 		}
 
 		/// <summary>
