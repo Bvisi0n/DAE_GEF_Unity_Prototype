@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+//TODO: Refactor - Split this up in modular scripts.
+
 namespace Assets.Scripts.SpawnPoint
 {
 	[RequireComponent(typeof(Health))]

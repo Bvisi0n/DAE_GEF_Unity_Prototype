@@ -27,9 +27,6 @@ namespace Assets.Scripts
 
 		public void SetSquadColor(Enemy.Belt newColor)
 		{
-			// TODO: Refactor - To many unrelated objects involve the Belt enum.
-			// This is messy but it provides a single source of truth for color and I'm out of budget (time) to do it properly.
-			// I don't like the naming of some of the involved classes etc and how they are all tangled up.
 			switch (newColor)
 			{
 				case Belt.White:
@@ -53,6 +50,9 @@ namespace Assets.Scripts
 			}
 		}
 
+		/// <remarks>
+		/// Use the overload with Enemy.Belt for default behaviour.
+		/// </remarks>
 		public void SetSquadColor(Color newColor)
 		{
 			if (_colorID == null)
