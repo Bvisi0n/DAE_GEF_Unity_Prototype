@@ -40,13 +40,6 @@ namespace Assets.Scripts
 				return;
 			}
 
-			if (String.IsNullOrEmpty(_nextLevel))
-			{
-				Debug.LogError("Next Level not assigned, script disabled.", this);
-				enabled = false;
-				return;
-			}
-
 			const string targetTag = "Player";
 			GameObject player = GameObject.FindWithTag(targetTag);
 
@@ -62,6 +55,11 @@ namespace Assets.Scripts
 			if (_player == null)
 			{
 				Debug.LogWarning("Player object doesn't have a Player.Logic component.", this);
+			}
+
+			if (String.IsNullOrEmpty(_nextLevel))
+			{
+				Debug.LogWarning("Next Level not assigned.", this);
 			}
 		}
 
