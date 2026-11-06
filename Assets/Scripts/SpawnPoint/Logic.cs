@@ -18,7 +18,7 @@ namespace Assets.Scripts.SpawnPoint
 		private Health _health;
 		private SquadColor _squadColor;
 		private VulnerablePulse _visuals;
-		private List<Enemy.Logic> _activeUnits;
+		private List<Enemy.DestroyedEvent> _activeUnits;
 		private float _spawnTimer;
 
 		public IObjective.ObjectiveType Type => IObjective.ObjectiveType.SpawnPoint;
@@ -68,7 +68,7 @@ namespace Assets.Scripts.SpawnPoint
 		private void Start()
 		{
 			_squadColor.SetSquadColor(_belt);
-			_activeUnits = new List<Enemy.Logic>(_maxUnitCount);
+			_activeUnits = new List<Enemy.DestroyedEvent>(_maxUnitCount);
 
 			for (int i = 0; i < _maxUnitCount; i++)
 			{
@@ -118,13 +118,14 @@ namespace Assets.Scripts.SpawnPoint
 			GameObject instance = Instantiate(_unitTemplate, transform.position, transform.rotation);
 			_spawnTimer = _spawnInterval;
 
-			if (!instance.TryGetComponent<Enemy.Logic>(out var enemy))
+			if (!instance.TryGetComponent<Enemy.DestroyedEvent>(out var enemy))
 			{
 				Debug.LogError("Enemy script not found on spawned GameObject.", this);
 				return;
 			}
 
 			enemy.Destroyed += OnEnemyDied;
+			_activeUnits.Add(enemy);
 
 			if (!instance.TryGetComponent<Enemy.Movement>(out var enemyMovement))
 			{
@@ -133,7 +134,6 @@ namespace Assets.Scripts.SpawnPoint
 			}
 
 			enemyMovement.SpawnPointPosition = transform.position;
-			_activeUnits.Add(enemy);
 			_health.CanHealthChange = false;
 			_visuals.SetVulnerable(false);
 			UpdateTextLabel();
@@ -152,7 +152,7 @@ namespace Assets.Scripts.SpawnPoint
 		/// reset the spawn cooldown to prevent an instant respawn,
 		/// update the count of units under my control and set my vulnerability accordingly.
 		/// </summary>
-		private void OnEnemyDied(Enemy.Logic enemy)
+		private void OnEnemyDied(Enemy.DestroyedEvent enemy)
 		{
 			_activeUnits.Remove(enemy);
 

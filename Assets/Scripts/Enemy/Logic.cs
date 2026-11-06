@@ -24,8 +24,6 @@ namespace Assets.Scripts.Enemy
 
 		public IObjective.ObjectiveType Type => IObjective.ObjectiveType.Enemy;
 
-		public event Action<Logic> Destroyed;
-
 		private void Awake()
 		{
 			const string targetTag = "Player";
@@ -64,11 +62,6 @@ namespace Assets.Scripts.Enemy
 					HandleAttackState();
 					break;
 			}
-		}
-
-		private void OnDestroy()
-		{
-			Destroyed?.Invoke(this);
 		}
 
 		private void HandleIdleState()
