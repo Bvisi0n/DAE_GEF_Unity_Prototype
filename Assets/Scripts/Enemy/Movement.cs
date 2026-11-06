@@ -41,8 +41,8 @@ namespace Assets.Scripts.Enemy
 
 			const float k_DestinationChangeCooldown = 5F;
 			_destinationChangeTimer = k_DestinationChangeCooldown;
-			Vector2 randomPoint = UnityEngine.Random.insideUnitCircle * _idleWanderRange;
-			_navMeshAgent.destination = SpawnPointPosition + new Vector3(randomPoint.x, 0F, 0F);
+			float randomPoint = Random.Range(-1F, 1F) * _idleWanderRange;
+			_navMeshAgent.destination = SpawnPointPosition + new Vector3(randomPoint, 0F, 0F);
 		}
 
 		public void ChaseTarget(Transform target)
