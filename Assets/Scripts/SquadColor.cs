@@ -30,7 +30,8 @@ namespace Assets.Scripts
 		public void SetSquadColor(Enemy.Tier.Belt newColor)
 		{
 			// TODO: Refactor - To many unrelated objects involve the Belt enum.
-			// This is messy and simply not done but it provides a single source of truth for color and I'm out of budget (time) to do it properly.
+			// This is messy but it provides a single source of truth for color and I'm out of budget (time) to do it properly.
+			// I don't like the naming of some of the involved classes etc and how they are all tangled up.
 			switch (newColor)
 			{
 				case Belt.White:
