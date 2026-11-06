@@ -19,7 +19,7 @@ namespace Assets.Scripts.SpawnPoint
 		private ObjectiveTracker _objectiveTracker;
 		private Health _health;
 		private SquadColor _squadColor;
-		private VulnerablePulse _visuals;
+		private VulnerablePulse _vulnerablePulse;
 		private List<Enemy.DestroyedEvent> _activeUnits;
 		private float _spawnTimer;
 
@@ -48,9 +48,9 @@ namespace Assets.Scripts.SpawnPoint
 				Debug.LogWarning("Couldn't find ObjectiveManager in this scene.", this);
 			}
 
-			_visuals = GetComponentInChildren<VulnerablePulse>();
+			_vulnerablePulse = GetComponentInChildren<VulnerablePulse>();
 
-			if (_visuals == null)
+			if (_vulnerablePulse == null)
 			{
 				Debug.LogWarning("Couldn't find Visuals script among children of this gameobject.", this);
 			}
@@ -161,7 +161,7 @@ namespace Assets.Scripts.SpawnPoint
 			if (_activeUnits.Count <= 0)
 			{
 				_health.CanHealthChange = true;
-				_visuals.SetVulnerable(true);
+				_vulnerablePulse.SetVulnerable(true);
 			}
 
 			UpdateTextLabel();
