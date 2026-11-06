@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-//TODO: Refactor - Split this up in modular scripts.
-
 namespace Assets.Scripts.SpawnPoint
 {
 	[RequireComponent(typeof(Health))]
@@ -112,8 +110,7 @@ namespace Assets.Scripts.SpawnPoint
 		}
 
 		/// <summary>
-		/// Spawn a unit above myself, subscribes to it's destruction event, give it my position,
-		/// update the unit count under my control, disable my vulnerability and reset the spawn cooldown.
+		/// Spawn a unit on my position, subscribes to it's destruction event, give it my position, update the unit count under my control, disable my vulnerability and reset the spawn cooldown.
 		/// </summary>
 		private void SpawnUnit()
 		{
@@ -153,9 +150,7 @@ namespace Assets.Scripts.SpawnPoint
 		}
 
 		/// <summary>
-		/// Unsubscribe from the observed object,
-		/// reset the spawn cooldown to prevent an instant respawn,
-		/// update the count of units under my control and set my vulnerability accordingly.
+		/// Unsubscribe from the observed object, reset the spawn cooldown to prevent an instant respawn, update the count of units under my control and set my vulnerability accordingly.
 		/// </summary>
 		private void OnEnemyDied(Enemy.DestroyedEvent enemy)
 		{

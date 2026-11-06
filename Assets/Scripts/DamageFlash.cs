@@ -48,12 +48,14 @@ namespace Assets.Scripts
 		{
 			_health.Damaged -= OnDamaged;
 
+			// If running, stop.
 			if (_flashRoutine != null)
 			{
 				StopCoroutine(_flashRoutine);
 				_flashRoutine = null;
 			}
 
+			// And reset.
 			RestoreOriginalBlocks();
 		}
 

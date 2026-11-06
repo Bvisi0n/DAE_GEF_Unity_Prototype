@@ -58,6 +58,7 @@ namespace Assets.Scripts.Enemy
 
 			if (_destinationChangeTimer > k_DestinationChangeCooldown || _destinationChangeTimer <= 0F)
 			{
+				// First condition can be true if it was idle before this call, that would use WanderAroundSpawnPoint and use a larger cooldown of 5.
 				_navMeshAgent.destination = target.position;
 				_destinationChangeTimer = k_DestinationChangeCooldown;
 			}

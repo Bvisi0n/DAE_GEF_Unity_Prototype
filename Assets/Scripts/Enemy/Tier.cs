@@ -3,6 +3,10 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.Enemy
 {
+	/// <summary>
+	/// <br>Represents the difficulty of the unit.</br>
+	/// <br>The belts are inspired by the belts in martial arts.</br>
+	/// </summary>
 	public enum Belt { White, Yellow, Orange, Purple, Brown, Black }
 
 	[RequireComponent(typeof(Attack))]
@@ -25,6 +29,10 @@ namespace Assets.Scripts.Enemy
 			_squadColor = GetComponent<SquadColor>();
 		}
 
+		/// <summary>
+		/// <br>Sets the difficulty of the unit.</br>
+		/// <br>The belts are inspired by the belts in martial arts.</br>
+		/// </summary>
 		public void SetBelt(Belt belt)
 		{
 			// TODO: Refactor - Could this be improved with "ScriptableObject"?

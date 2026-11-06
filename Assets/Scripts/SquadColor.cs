@@ -24,7 +24,11 @@ namespace Assets.Scripts
 		{
 			SetSquadColor(_color);
 		}
-
+		/// <summary>
+		/// <br>Sets the ColorID of the object to a specific color.</br>
+		/// <br>This color is used to indicate to the player which objects belong together and how dangerous they are.</br>
+		/// <br>The colors are inspired by the belts in martial arts.</br>
+		/// </summary>
 		public void SetSquadColor(Enemy.Belt newColor)
 		{
 			switch (newColor)
@@ -50,6 +54,11 @@ namespace Assets.Scripts
 			}
 		}
 
+		/// <summary>
+		/// <br>Sets the ColorID of the object to a specific color.</br>
+		/// <br>This color is used to indicate to the player which objects belong together and how dangerous they are.</br>
+		/// <br>The colors are inspired by the belts in martial arts.</br>
+		/// </summary>
 		/// <remarks>
 		/// Use the overload with Enemy.Belt for default behaviour.
 		/// </remarks>

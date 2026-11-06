@@ -31,7 +31,13 @@ namespace Assets.Scripts
 			}
 		}
 
-		/// <remarks>Pass negative values to decrease current health.</remarks>
+		/// <summary>
+		/// Change the current health by the given amount if CanHealthChange is set to true.
+		/// </summary>
+		/// <remarks>
+		/// <br>Pass negative values to decrease current health.</br>
+		/// <br>The resulting health is clamped between 0 and _maxHealth</br>
+		/// </remarks>
 		public void ChangeHealth(int amount)
 		{
 			if (CanHealthChange)
@@ -56,8 +62,12 @@ namespace Assets.Scripts
 			_currentHealth = newHealth;
 		}
 
-		/// <summary>Instruct the GameObject to self-destruct.</summary>
-		/// <remarks>Bypasses CanTakeDamage flag.</remarks>
+		/// <summary>
+		/// Instruct the GameObject to self-destruct.
+		/// </summary>
+		/// <remarks>
+		/// Bypasses CanTakeDamage flag.
+		/// </remarks>
 		public void Die()
 		{
 			Destroy(gameObject);

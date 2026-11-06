@@ -1,6 +1,7 @@
 using UnityEngine;
 
 // TODO: Rework - Movement doesn't feel quite right.
+// Research required:
 // GDC Festival of Gaming: Math for Game Programmers: Building a Better Jump
 // https://youtu.be/hG9SzQxaCm8?si=HR7YLmNufOJKsG6R
 
@@ -106,6 +107,9 @@ namespace Assets.Scripts.Player
 			_isGrounded = Physics.Raycast(origin, Vector3.down, k_GroundCheckDistance, _jumpableLayers);
 		}
 
+		/// <summary>
+		/// Aims the "gun" at the DesiredLookAtPoint, usually the mouse.
+		/// </summary>
 		private void HandleLookAt()
 		{
 			if (_shoulderSocket == null)

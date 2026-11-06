@@ -18,7 +18,6 @@ namespace Assets.Scripts
 
 		private void Awake()
 		{
-			// TODO: Refactor - Make these logs dry and uniform by abstracting them. (in every script)
 			if (_winPanel == null)
 			{
 				Debug.LogError("Win Panel not assigned, script disabled.", this);
