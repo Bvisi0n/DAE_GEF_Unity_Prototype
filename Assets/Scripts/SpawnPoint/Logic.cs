@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace Assets.Scripts.SpawnPoint
 		private Health _health;
 		private SquadColor _squadColor;
 		private VulnerablePulse _visuals;
-		private int _activeUnits;
+		private List<Enemy.Enemy> _activeUnits;
 
 		// TODO: Bug - Uses Time.time which does not account for pause or lag.
 		private float _timestampOfLastSpawn;
@@ -69,6 +70,8 @@ namespace Assets.Scripts.SpawnPoint
 		private void Start()
 		{
 			_squadColor.SetSquadColor(_belt);
+			_activeUnits = new List<Enemy.Enemy>(_maxUnitCount);
+
 			for (int i = 0; i < _maxUnitCount; i++)
 			{
 				SpawnUnit();
@@ -79,7 +82,7 @@ namespace Assets.Scripts.SpawnPoint
 
 		private void Update()
 		{
-			if (_activeUnits >= _maxUnitCount)
+			if (_activeUnits.Count >= _maxUnitCount)
 			{
 				return;
 			}
@@ -100,6 +103,14 @@ namespace Assets.Scripts.SpawnPoint
 			}
 		}
 
+		private void OnDestroy()
+		{
+			foreach (var unit in _activeUnits)
+			{
+				unit.Destroyed -= OnEnemyDied;
+			}
+		}
+
 		/// <summary>
 		/// Spawn a unit above myself, subscribes to it's destruction event, give it my position,
 		/// update the unit count under my control, disable my vulnerability and reset the spawn cooldown.
@@ -114,11 +125,9 @@ namespace Assets.Scripts.SpawnPoint
 				return;
 			}
 
-			// TODO: Bug - Cache all subscriptions and unsub from them upon self-destruction.
 			enemy.Destroyed += OnEnemyDied;
 			enemy.SpawnPointPosition = transform.position;
-
-			_activeUnits++;
+			_activeUnits.Add(enemy);
 			_health.CanHealthChange = false;
 			_visuals.SetVulnerable(false);
 			UpdateTextLabel();
@@ -138,11 +147,11 @@ namespace Assets.Scripts.SpawnPoint
 		/// reset the spawn cooldown to prevent an instant respawn,
 		/// update the count of units under my control and set my vulnerability accordingly.
 		/// </summary>
-		private void OnEnemyDied()
+		private void OnEnemyDied(Enemy.Enemy enemy)
 		{
-			_activeUnits--;
+			_activeUnits.Remove(enemy);
 
-			if (_activeUnits <= 0)
+			if (_activeUnits.Count <= 0)
 			{
 				_health.CanHealthChange = true;
 				_visuals.SetVulnerable(true);

@@ -43,7 +43,7 @@ namespace Assets.Scripts.Enemy
 
 		public IObjective.ObjectiveType Type => IObjective.ObjectiveType.Enemy;
 
-		public event Action Destroyed;
+		public event Action<Enemy> Destroyed;
 
 		private void Awake()
 		{
@@ -92,7 +92,7 @@ namespace Assets.Scripts.Enemy
 
 		private void OnDestroy()
 		{
-			Destroyed?.Invoke();
+			Destroyed?.Invoke(this);
 		}
 
 		public void SetTierStats(int attackDamage, float attackCooldown)
