@@ -1,20 +1,15 @@
 using System;
 using UnityEngine;
-using UnityEngine.AI;
-
-// TODO: Refactor - Split this logic up in separate specialized scripts.
 
 namespace Assets.Scripts.Enemy
 {
 	public enum State { Idle, Chase, Attack }
 
+	[RequireComponent(typeof(Attack))]
 	[RequireComponent(typeof(Movement))]
 	[RequireComponent(typeof(StateIndicator))]
 	public sealed class Logic : MonoBehaviour, IObjective
 	{
-		[SerializeField, Min(0F)] private int _attackDamage = 1;
-		[SerializeField, Min(0F)] private float _attackCooldown = 1F;
-
 		[SerializeField, Min(0F), Tooltip("The range of the attack ability.")]
 		private float _attackRange = 1F;
 
@@ -22,10 +17,10 @@ namespace Assets.Scripts.Enemy
 		private float _spotRange = 10F;
 
 		private Transform _attackTarget;
+		private Attack _attack;
 		private Movement _movement;
 		private StateIndicator _stateIndicator;
 		private State _currentState;
-		private float _attackTimer;
 
 		public IObjective.ObjectiveType Type => IObjective.ObjectiveType.Enemy;
 
@@ -45,6 +40,7 @@ namespace Assets.Scripts.Enemy
 				_attackTarget = attackTarget.transform;
 			}
 
+			_attack = GetComponent<Attack>();
 			_movement = GetComponent<Movement>();
 			_stateIndicator = GetComponent<StateIndicator>();
 		}
@@ -73,12 +69,6 @@ namespace Assets.Scripts.Enemy
 		private void OnDestroy()
 		{
 			Destroyed?.Invoke(this);
-		}
-
-		public void SetTierStats(int attackDamage, float attackCooldown)
-		{
-			_attackDamage = attackDamage;
-			_attackCooldown = attackCooldown;
 		}
 
 		private void HandleIdleState()
@@ -130,12 +120,7 @@ namespace Assets.Scripts.Enemy
 
 			if (IsPlayerInRange(_attackRange))
 			{
-				_attackTimer -= Time.deltaTime;
-
-				if (_attackTimer <= 0.0F)
-				{
-					AttackTarget();
-				}
+				_attack.TryAttack(_attackTarget);
 			}
 			else
 			{
@@ -164,24 +149,6 @@ namespace Assets.Scripts.Enemy
 
 			Vector3 distance = _attackTarget.transform.position - transform.position;
 			return distance.sqrMagnitude <= range * range;
-		}
-
-		private void AttackTarget()
-		{
-			if (_attackTarget == null)
-			{
-				return;
-			}
-
-			_attackTimer = _attackCooldown;
-
-			if (!_attackTarget.TryGetComponent<Health>(out var targetHealth))
-			{
-				Debug.LogWarning("Target has no health to deal damage too.", this);
-				return;
-			}
-
-			targetHealth.ChangeHealth(-_attackDamage);
 		}
 	}
 }
