@@ -5,7 +5,7 @@ using static Assets.Scripts.Enemy.Tier;
 
 namespace Assets.Scripts
 {
-	public class SquadColor : MonoBehaviour
+	public sealed class SquadColor : MonoBehaviour
 	{
 		private static readonly int k_BaseColorId = Shader.PropertyToID("_BaseColor");
 

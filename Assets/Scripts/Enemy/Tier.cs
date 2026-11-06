@@ -7,7 +7,7 @@ namespace Assets.Scripts.Enemy
 	[RequireComponent(typeof(Health))]
 	[RequireComponent(typeof(NavMeshAgent))]
 	[RequireComponent(typeof(SquadColor))]
-	public class Tier : MonoBehaviour
+	public sealed class Tier : MonoBehaviour
 	{
 		private Logic _enemy;
 		private Health _health;
