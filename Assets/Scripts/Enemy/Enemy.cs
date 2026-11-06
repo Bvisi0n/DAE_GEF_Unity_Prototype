@@ -218,7 +218,6 @@ namespace Assets.Scripts.Enemy
 
 		private void ChaseTarget()
 		{
-			// TODO: Bug - Enemies can push player inside other objects.
 			if (!_navMeshAgent.isOnNavMesh)
 			{
 				Debug.LogWarning("Agent is not on Nav Mesh Surface.", this);
