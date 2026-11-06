@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 2550958452108646632}
   - component: {fileID: 8791309649227845003}
   - component: {fileID: -719191447806828415}
+  - component: {fileID: 6378876021136115955}
   - component: {fileID: 5602174816746100541}
   - component: {fileID: 1065609367726540319}
   m_Layer: 9
@@ -304,11 +305,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3151823875788373056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 703d52aa8d037d242957a82aa18733be, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e7fa1a9ac0219a49a16a29f14e42082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _attackIndicator: {fileID: 20879034068494849}
-  _chaseIndicator: {fileID: 1462127051800666980}
   _attackDamage: 1
   _attackCooldown: 1
   _attackRange: 1.5
@@ -341,6 +340,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
   _flashColor: {r: 1, g: 1, b: 1, a: 1}
   _flashDuration: 0.1
+--- !u!114 &6378876021136115955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3151823875788373056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc8c404198c253419b44bcdd16f817e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemy.StateIndicator
+  _attackIndicator: {fileID: 20879034068494849}
+  _chaseIndicator: {fileID: 1462127051800666980}
 --- !u!114 &5602174816746100541
 MonoBehaviour:
   m_ObjectHideFlags: 0

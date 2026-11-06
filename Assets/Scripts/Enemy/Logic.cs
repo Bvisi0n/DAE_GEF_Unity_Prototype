@@ -6,11 +6,13 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.Enemy
 {
+	public enum State { Idle, Chase, Attack }
+
 	[RequireComponent(typeof(NavMeshAgent))]
+	[RequireComponent(typeof(StateIndicator))]
 	public sealed class Logic : MonoBehaviour, IObjective
 	{
-		[SerializeField] private GameObject _attackIndicator;
-		[SerializeField] private GameObject _chaseIndicator;
+
 		[SerializeField, Min(0F)] private int _attackDamage = 1;
 		[SerializeField, Min(0F)] private float _attackCooldown = 1F;
 
@@ -25,8 +27,7 @@ namespace Assets.Scripts.Enemy
 
 		private GameObject _attackTarget;
 		private NavMeshAgent _navMeshAgent;
-
-		private enum State { Idle, Chase, Attack }
+		private StateIndicator _stateIndicator;
 		private State _currentState;
 		private float _destinationChangeTimer;
 		private float _attackTimer;
@@ -46,17 +47,8 @@ namespace Assets.Scripts.Enemy
 				Debug.LogWarning($"No GameObject with tag '{targetTag}' found. No target set.", this);
 			}
 
-			if (_attackIndicator == null)
-			{
-				Debug.LogWarning("Attack Indicator not assigned.", this);
-			}
-
-			if (_chaseIndicator == null)
-			{
-				Debug.LogWarning("Chase Indicator not assigned.", this);
-			}
-
 			_navMeshAgent = GetComponent<NavMeshAgent>();
+			_stateIndicator = GetComponent<StateIndicator>();
 		}
 
 		private void Start()
@@ -163,16 +155,7 @@ namespace Assets.Scripts.Enemy
 			}
 
 			_currentState = newState;
-
-			if (_attackIndicator != null)
-			{
-				_attackIndicator.SetActive(newState == State.Attack);
-			}
-
-			if (_chaseIndicator != null)
-			{
-				_chaseIndicator.SetActive(newState == State.Chase);
-			}
+			_stateIndicator.SetIndicator(_currentState);
 		}
 
 		private bool IsPlayerInRange(float range)
