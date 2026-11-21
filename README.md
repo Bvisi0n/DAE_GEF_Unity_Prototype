@@ -4,3 +4,5 @@ As the name of the course implies, this was an introduction to the Unity Engine,
 
 This isn't intended as a portfolio piece but rather as a personal archive, I like to come back to my previous work and check how I solved a problem in the past before spending precious time researching a new solution.  
 Hence why there is no elaborate showcase of what this repository is all about.
+
+This project uses Unity 6.3 LTS (6000.3.24f1).
